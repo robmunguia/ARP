@@ -1,0 +1,84 @@
+<div *ngIf="ReqClientes.length > 0" class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="col-2 pull-left">
+                    <a class="btn waves-effect waves-light btn-info" [routerLink]="['/requis/add']"> <i class="mdi mdi-plus"></i> </a>
+                </div>
+                <div class="col-10 text-right pull-right">
+                    <span *ngFor="let tnom of nominas" class="badge tipo-nomina" [style.backgroundColor]="tnom.Color" [style.color]="tnom.Nombre === 'Reclutamiento' ? '#000': '#fff'"> {{ tnom.Nombre }} </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div *ngIf="ReqClientes.length === 0" class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="alert alert-warning text-center" role="alert">
+                    No has registrado requisiciones <br> El botón azul abre el formulario para generar un nuevo requerimiento.
+                </div>
+                <div class="text-center">
+                    <a class="btn waves-effect waves-light btn-info" [routerLink]="['/requis/add']"> <i class="mdi mdi-plus"></i> </a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div *ngFor="let clie of ReqClientes" class="card">
+            <div class="card-body">
+
+                <div class="col-6 pull-left">
+                    <h4 class="card-title text-left"> {{ clie.ClieNombre }} : {{ clie.ClieCodigo }} </h4>
+                </div>
+                <div class="col-6 pull-right">
+                    <h4 class="card-title text-right"> <span class="card-subtitle">H</span> {{ clie.Hombres }} <span class="card-subtitle">M</span> {{ clie.Mujeres }} <span class="card-subtitle">I</span> {{ clie.Indistinto }} </h4>
+                </div>
+
+                <table class="table table-sm color-bordered-table" [style.backgroundColor]="clie.Color" [style.color]="clie.Color === '' ? '#000' : clie.TextColor">
+                    <thead>
+                        <tr>
+                            <th class="hidden-md-down">#</th>
+                            <th class="hidden-md-down">PUESTO</th>
+                            <th>TURNO</th>
+                            <th>SALARIO</th>
+                            <th> H </th>
+                            <th> M </th>
+                            <th> I </th>
+                            <th class="hidden-md-down">Observaciones</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let req of clie.requisiciones" [style.backgroundColor]="req.tnomina.Color" [style.color]="req.tnomina.Nombre === 'Reclutamiento' ? '#000' : '#fff'">
+                            <td class="hidden-md-down">{{ req.Id }} </td>
+                            <td class="hidden-md-down">{{ req.puesto.Nombre }}</td>
+                            <td>{{ req.turno.Nombre }}</td>
+                            <td>{{ req.salario | currency }} V {{ req.vales | currency }} </td>
+                            <td> {{ req.Hombres }} </td>
+                            <td> {{ req.Mujeres }} </td>
+                            <td> {{ req.Indistinto }} </td>
+                            <td class="hidden-md-down">{{ req.Comentario }}</td>
+                            <td>
+                                <span class="action-icons">
+                                    <a href="javascript:void(0)" [routerLink]="['/envio', req.Id ]" class="btn btn-success btn-sm text-white icon-buttons" title="Enviar"><i class="icon icon-paper-plane"></i></a>
+                                    <a href="javascript:void(0)" (click)="cerrarRequi( req )" class="btn btn-info btn-sm text-white" title="Confirmar"><i class="icon icon-check"></i></a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

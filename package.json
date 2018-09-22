@@ -20,8 +20,13 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@ng-bootstrap/ng-bootstrap": "^3.2.0",
+    "@ng-select/ng-select": "^2.6.0",
     "core-js": "^2.5.4",
-    "rxjs": "^6.0.0",
+    "ngx-color-picker": "^4.5.3",
+    "rxjs": "^6.2.2",
+    "rxjs-compat": "^6.2.2",
+    "sweetalert2": "^7.26.12",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

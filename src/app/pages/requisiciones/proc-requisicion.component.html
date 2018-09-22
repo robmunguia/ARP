@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="card-title">Realizar Proceso a Requisiciones</h3>
+
+            <div class="card-body">
+
+                <label for="requis">Ingresar los # de requisiciones</label>
+                <ng-select name="requis" [items]="[]" [addTag]="true" [multiple]="true" [isOpen]="false" [(ngModel)]="requis">
+                </ng-select>
+
+                <div class="form-group">
+                    <label>Click para cambiar de acción a las requisiciones</label>
+                    <br>
+                    <button (click)="tipo = 'abrir'" *ngIf="tipo === 'cancelar'" type="button" class="btn btn-primary btn-block">Cancelar</button>
+                    <button (click)="tipo = 'cancelar'" *ngIf="tipo === 'abrir'" type="button" class="btn btn-warning btn-block">Abrir</button>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" (click)="procesar()" class="btn btn-info waves-effect waves-light m-r-10">Procesar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

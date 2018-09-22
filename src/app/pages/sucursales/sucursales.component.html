@@ -1,0 +1,60 @@
+<div class="row animated fadeIn" *ngIf="cargando">
+
+    <div class="col-sm-12">
+
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="text-right">
+                    <button (click)="crearSucursal()" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                      <i class="fa fa-plus"></i> 
+                      Crear Sucursal
+                  </button>
+                </div>
+
+                <h3 class="card-title">Sucursales registrados ( <small>{{ sucursales.length }}</small> )</h3>
+
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th> Número </th>
+                            <th>Nombre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let sucur of sucursales">
+                            <td>
+                                <strong>{{ sucur.Id }}</strong>
+                            </td>
+                            <td>
+                                <input [(ngModel)]="sucur.Nombre" name="nombre" type="text" class="form-control" placeholder="Nombre de la Sucursal" />
+                            </td>
+
+                            <td>
+                                <button (click)="modificarSucursal( sucur )" class="btn btn-primary">
+                                  <i class="fa fa-save"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

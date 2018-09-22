@@ -1,0 +1,81 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="text-center card-title">Nueva Requisición</h4>
+        <form #f="ngForm" ngNativeValidate (ngSubmit)="guardar()" class="row">
+            <div class="form-group col-md-6">
+                <label for="clie">Cliente</label>
+                <ng-select [(ngModel)]="requi.cliente" (ngModelChange)="cambio($event)" name="clie" [items]="clientes" bindLabel="Descripcion">
+                    <ng-template ng-option-tmp let-item="item">
+                        <small>{{item.Id}} : </small> {{item.Nombre}}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="turno">Turno</label>
+                <ng-select [(ngModel)]="requi.turno" name="turno" [items]="requi.cliente.Turnos" bindLabel="Nombre">
+                    <ng-template ng-option-tmp let-item="item">
+                        {{item.Nombre}}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="puesto">Puesto</label>
+                <ng-select [(ngModel)]="requi.puesto" name="puesto" [items]="requi.cliente.Puestos" bindLabel="Nombre">
+                    <ng-template ng-option-tmp let-item="item">
+                        {{item.Nombre}}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="dp">Fecha (yyyy-m-d)</label>
+                <div class="input-group">
+                    <input [(ngModel)]="requi.fecha" class="form-control" placeholder="yyyy-mm-dd" [minDate]="minDate" showWeekNumbers="true" name="dp" ngbDatepicker #d="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="salario">Salario</label>
+                <input [(ngModel)]="requi.salario" type="number" name="salario" class="form-control form-control-line" placeholder="Salario" required />
+            </div>
+            <div class="form-group col-md-3">
+                <label for="salario">Vales</label>
+                <input [(ngModel)]="requi.vales" type="number" name="vales" class="form-control form-control-line" placeholder="Vales" required />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="nomina">Tipo de Nómina</label>
+                <ng-select [(ngModel)]="requi.tnomina" name="tnomina" [items]="tnominas" bindLabel="Nombre">
+                    <ng-template ng-option-tmp let-item="item">
+                        <span class="text-white" [style.backgroundColor]="item.Color"> {{ item.Nombre }} </span>
+                    </ng-template>
+                </ng-select>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>H</label>
+                <input [(ngModel)]="requi.Hombres" min="0" (change)="valueChange()" name="hombres" type="number" class="form-control" [readonly]="readOnlyHM" placeholder="Hombres" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label>M</label>
+                <input [(ngModel)]="requi.Mujeres" min="0" (change)="valueChange()" name="mujeres" type="number" class="form-control" placeholder="Mujeres" [readonly]="readOnlyHM" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label>I</label>
+                <input [(ngModel)]="requi.Indistinto" min="0" (change)="valueChange()" name="indistinto" type="number" class="form-control" placeholder="Indistintos" [readonly]="readOnlyIndi" required />
+            </div>
+
+            <div class="form-group col-md-12">
+                <label for="comentario">Comentarios</label>
+                <textarea [(ngModel)]="requi.Comentario" name="comentario" class="form-control" rows="4"></textarea>
+            </div>
+
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                <a href="#" [routerLink]="['/requis']" class="btn btn-inverse waves-effect waves-light m-r-10">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+</div>
