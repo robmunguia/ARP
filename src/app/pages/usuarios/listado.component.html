@@ -1,0 +1,78 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input #input (keyup)="buscar( input.value )" type="text" class="form-control" placeholder="Buscar por Nombre ..." />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando">
+
+    <div class="col-sm-12">
+
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h3 class="card-title">Usuarios activos ( <small>{{ totalRegistros }}</small> )</h3>
+
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>No Empleado</th>
+                            <th>Sucursales</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let usua of usuarios">
+                            <td>
+                                {{ usua.Nombre }}
+                            </td>
+                            <td>
+                                <input [(ngModel)]="usua.NoEmpleado" name="noempleado" type="text" class="form-control" placeholder="No Empleado" />
+                            </td>
+                            <td>
+                                <ng-select [(ngModel)]="usua.sucursales" [items]="sucursales" [multiple]="true" [closeOnSelect]="false" [searchable]="false" bindLabel="Nombre" placeholder="Sin Sucursal">
+                                </ng-select>
+                            </td>
+                            <td>
+                                <button (click)="guardar( usua )" class="btn btn-primary">
+                                  <i class="fa fa-save"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <button (click)="cambiarDesde(-1)" class="btn btn-secondary">
+                Anteriores
+              </button>
+
+                <button (click)="cambiarDesde(1)" class="btn btn-secondary">
+                Siguientes
+              </button>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,3 +1,75 @@
-<p>
-  confirmaciones works!
-</p>
+<div class="row">
+    <div class="col-12">
+        <div class="ribbon-wrapper card">
+            <div class="ribbon ribbon-info">{{ requi.DesEstatus }}</div>
+            <div class="card-body">
+                <h3 class="card-title text-center">Requisición: {{ requi.Id }} <span>{{ requi.cliente.Descripcion }}</span> </h3>
+                <h4 class="card-title text-center"> {{ requi.fecha | fecha }} <span class="card-subtitle">H</span> {{ requi.Hombres }} <span class="card-subtitle">M</span> {{ requi.Mujeres }} <span class="card-subtitle">I</span> {{ requi.Indistinto }} </h4>
+                <hr>
+                <h3 class="card-title"></h3>
+                <div class="col-6">
+                    <h3 class="card-title"> Restante <span class="card-subtitle">H</span> {{ TRH }} <span class="card-subtitle">M</span> {{ TRM }} <span class="card-subtitle">I</span> {{ TRI }} </h3>
+                    <h4 class="card-title"> Confirmados <span class="card-subtitle">H</span> {{ TCH }} <span class="card-subtitle">M</span> {{ TCM }} <span class="card-subtitle">I</span> {{ TCI }} </h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="card-title">Confirmar Envíos</h3>
+            <div class="card-body">
+
+                <div *ngIf="requi.envios.length === 0" class="alert alert-warning" role="alert">
+                    No se ha enviado personal a esta requisición.
+                </div>
+
+                <table *ngIf="requi.envios.length > 0" class="table table-sm color-bordered-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha</th>
+                            <th>Usuario</th>
+                            <th> H </th>
+                            <th> M </th>
+                            <th> I </th>
+                            <th>Estatus</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let env of requi.envios">
+                            <td>{{ env.id }} </td>
+                            <td>{{ env.fecha | fecha }}</td>
+                            <td>{{ env.usuario.Nombre }}</td>
+                            <td>
+                                <span *ngIf="env.hombre === 0 || env.estatus === 'Confirmado'">{{ env.confhombre }}</span>
+                                <input *ngIf="(env.confhombre !== 0 && env.estatus ==='Sin Confirmar') " [(ngModel)]="env.confhombre" name="confhombre" type="number" class="form-control" placeholder="H" />
+                            </td>
+                            <td>
+                                <span *ngIf="env.mujer === 0 || env.estatus === 'Confirmado'">{{ env.confmujer }}</span>
+                                <input *ngIf="env.confmujer !== 0 && env.estatus ==='Sin Confirmar'" [(ngModel)]="env.confmujer" name="confmujer" type="number" class="form-control" placeholder="M" />
+                            </td>
+                            <td>
+                                <span *ngIf="env.indistinto === 0 || env.estatus === 'Confirmado'">{{ env.confindistinto }}</span>
+                                <input *ngIf="env.confindistinto !== 0 && env.estatus ==='Sin Confirmar'" [(ngModel)]="env.confindistinto" name="confindis" type="number" class="form-control" placeholder="I" />
+                            </td>
+                            <td>{{ env.estatus }}</td>
+                            <td>
+                                <span *ngIf="permiso.agregar" class="action-icons">
+                                    <a href="javascript:void(0)" *ngIf="env.estatus !== 'Confirmado'" (click)="confirmar( env )" class="btn btn-info btn-sm text-white" title="Confirmar"><i class="icon icon-check"></i></a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="#" [routerLink]="['/requis']" class="btn btn-inverse waves-effect waves-light m-r-10">Regresar</a>
+
+            </div>
+        </div>
+    </div>
+</div>

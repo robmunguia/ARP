@@ -1,0 +1,92 @@
+<div class="tab-pane" id="home" role="tabpanel">
+    <div class="row animated fadeIn">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <input #input (keyup)="buscar( input.value )" type="text" class="form-control" placeholder="Buscar módulo ..." />
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row animated fadeIn" *ngIf="!cargando">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="text-right">
+                        <button [routerLink]="['/config/permisos/add']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                            <i class="fa fa-plus"></i> 
+                            Permiso
+                        </button>
+                    </div>
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Grupo</th>
+                                <th>Módulo</th>
+                                <th>Consultar</th>
+                                <th>Agregar</th>
+                                <th>Modificar</th>
+                                <th>Imprimir</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr *ngFor="let perm of permisos">
+                                <td>
+                                    {{ perm.grupo.Descripcion }}
+                                </td>
+                                <td>
+                                    {{ perm.modulo.nombre }}
+                                </td>
+                                <td>
+                                    <div>
+                                        <input [(ngModel)]="perm.consultar" name="consultar" [id]="perm.id" type="checkbox" class="filled-in chk-col-light-blue" />
+                                        <label [for]="perm.id">  </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <input [(ngModel)]="perm.agregar" name="agregar" [id]="('a' + perm.id)" type="checkbox" class="filled-in chk-col-light-blue" />
+                                        <label [for]="('a' + perm.id)">  </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <input [(ngModel)]="perm.modificar" name="modificar" [id]="('m' + perm.id)" type="checkbox" class="filled-in chk-col-light-blue" />
+                                        <label [for]="('m' + perm.id)">  </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <input [(ngModel)]="perm.imprimir" name="imprimir" [id]="('i' + perm.id)" type="checkbox" class="filled-in chk-col-light-blue" />
+                                        <label [for]="('i' + perm.id)">  </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button (click)="guardar( perm )" class="btn btn-primary">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <button (click)="cambiarDesde(-1)" class="btn btn-secondary">
+                        Anteriores
+                    </button>
+
+                    <button (click)="cambiarDesde(1)" class="btn btn-secondary">
+                        Siguientes
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

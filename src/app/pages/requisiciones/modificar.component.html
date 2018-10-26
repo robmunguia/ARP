@@ -1,0 +1,67 @@
+<div *ngIf="requi.Id === 0" class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <label for="find">Buscar Requisición</label>
+
+                <input name="find" #input (keyup.enter)="buscarRequisicion( input.value )" type="text" class="form-control" placeholder="Ingresar número de Requisición...">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="requi.Id !== 0" class="ribbon-wrapper card">
+    <div class="ribbon ribbon-info">{{ requi.DesEstatus }}</div>
+    <div class="card-body">
+        <h4 class="text-center card-title">Modificar Requisición {{ requi.Id }} </h4>
+        <form #f="ngForm" ngNativeValidate (ngSubmit)="guardar()" class="row">
+
+            <div class="form-group col-md-6">
+                <label for="turno">Turno</label>
+                <ng-select [(ngModel)]="requi.turno" name="turno" [items]="requi.cliente.Turnos" bindLabel="Nombre">
+                    <ng-template ng-option-tmp let-item="item">
+                        {{item.Nombre}}
+                    </ng-template>
+                </ng-select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="nomina">Tipo de Nómina</label>
+                <ng-select [(ngModel)]="requi.tnomina" name="tnomina" [items]="tnominas" bindLabel="Nombre">
+                    <ng-template ng-option-tmp let-item="item">
+                        <span class="text-white" [style.backgroundColor]="item.Color"> {{ item.Nombre }} </span>
+                    </ng-template>
+                </ng-select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="salario">Salario</label>
+                <input [(ngModel)]="requi.salario" type="number" name="salario" class="form-control form-control-line" placeholder="Salario" required />
+            </div>
+            <div class="form-group col-md-6">
+                <label for="salario">Vales</label>
+                <input [(ngModel)]="requi.vales" type="number" name="vales" class="form-control form-control-line" placeholder="Vales" required />
+            </div>
+
+            <div class="form-group col-md-4">
+                <label>H</label>
+                <input [(ngModel)]="requi.Hombres" min="0" (change)="valueChange()" name="hombres" type="number" class="form-control" [readonly]="readOnlyHM" placeholder="Hombres" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label>M</label>
+                <input [(ngModel)]="requi.Mujeres" min="0" (change)="valueChange()" name="mujeres" type="number" class="form-control" placeholder="Mujeres" [readonly]="readOnlyHM" required />
+            </div>
+            <div class="form-group col-md-4">
+                <label>I</label>
+                <input [(ngModel)]="requi.Indistinto" min="0" (change)="valueChange()" name="indistinto" type="number" class="form-control" placeholder="Indistintos" [readonly]="readOnlyIndi" required />
+            </div>
+
+            <div class="form-group col-md-12">
+                <button *ngIf="permiso.agregar" type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                <a href="#" [routerLink]="['/requis']" class="btn btn-inverse waves-effect waves-light m-r-10">Cancelar</a>
+            </div>
+
+        </form>
+    </div>
+</div>

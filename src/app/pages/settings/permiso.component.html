@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-body">
+            <h4 class="card-title text-center"> Permiso </h4>
+            <form #f="ngForm" ngNativeValidate (ngSubmit)="guardar()" class="form-horizontal">
+                <div class="form-group">
+                    <label for="Nombre">Grupo</label>
+                    <select [(ngModel)]="permiso.grupo" name="rol" class="form-control" required>
+                      <option *ngFor="let rol of grupos" [ngValue]="rol">{{ rol.Descripcion }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modulo">Módulo</label>
+                    <select [(ngModel)]="permiso.modulo" name="modulo" class="form-control" required>
+                      <option *ngFor="let modu of modulos" [ngValue]="modu">{{ modu.nombre }}</option>
+                    </select>
+                </div>
+
+                <div>
+                    <input [(ngModel)]="permiso.consultar" name="consultar" [id]="permiso.id" type="checkbox" class="filled-in chk-col-light-blue" />
+                    <label [for]="permiso.id"> Consultar </label>
+                </div>
+                <div>
+                    <input [(ngModel)]="permiso.agregar" name="agregar" [id]="('a' + permiso.id)" type="checkbox" class="filled-in chk-col-light-blue" />
+                    <label [for]="('a' + permiso.id)"> Agregar </label>
+                </div>
+
+                <div>
+                    <input [(ngModel)]="permiso.modificar" name="modificar" [id]="('m' + permiso.id)" type="checkbox" class="filled-in chk-col-light-blue" />
+                    <label [for]="('m' + permiso.id)"> Modificar </label>
+                </div>
+
+                <div>
+                    <input [(ngModel)]="permiso.imprimir" name="imprimir" [id]="('i' + permiso.id)" type="checkbox" class="filled-in chk-col-light-blue" />
+                    <label [for]="('i' + permiso.id)"> Imprimir </label>
+                </div>
+
+                <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                <a href="#" [routerLink]="['/config/permisos']" class="btn btn-inverse waves-effect waves-light m-r-10">Cancelar</a>
+
+            </form>
+        </div>
+    </div>
+</div>

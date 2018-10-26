@@ -10,6 +10,11 @@ export class Envio {
         public indistinto: number = 0,
         public fecha: Fecha = new Fecha(),
         public usuario: Usuario = new Usuario(),
+        public confUser: Usuario = new Usuario(),
+        public estatus: string = '',
+        public confhombre: number = 0,
+        public confmujer: number = 0,
+        public confindistinto: number = 0,
         public requisicion: Requisicion = new Requisicion()
     ) { }
 }

@@ -22,6 +22,7 @@ export class Requisicion {
         public Mujeres: number = 0,
         public Indistinto: number = 0,
         public Comentario: string = '',
-        public estatus: number = 0
+        public estatus: number = 0,
+        public DesEstatus: string = ''
     ) { }
 }

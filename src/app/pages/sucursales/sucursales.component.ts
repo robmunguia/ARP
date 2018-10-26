@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Sucursales } from '../../models/sucursal.model';
-import { SucursalesService } from '../../services/service.index';
+import { SucursalesService, AuthService } from '../../services/service.index';
 import swal from 'sweetalert2';
 import { Subscription } from 'node_modules/rxjs';
+import { Permisos } from 'src/app/models/models.index';
 
 @Component({
   selector: 'app-sucursales',
@@ -11,12 +12,16 @@ import { Subscription } from 'node_modules/rxjs';
 })
 export class SucursalesComponent implements OnInit {
 
+  permiso: Permisos = new Permisos();
   sucursales: Sucursales[] = [];
-  cargando: boolean;
+  cargando = false;
   subscription: Subscription;
 
-  constructor(public _sucursalService: SucursalesService) {
-    this.cargando = false;
+  constructor(public _sucursalService: SucursalesService,
+              public authService: AuthService) {
+
+                this.permiso = this.authService.usuario.permisos.find( p => p.modulo.nombre === 'Sucursales'
+                && p.grupo.Id === this.authService.usuario.RolId);
   }
 
   ngOnInit() {
@@ -39,6 +44,7 @@ export class SucursalesComponent implements OnInit {
       input: 'text',
       inputPlaceholder: 'Ingresar nombre',
       showCancelButton: true,
+      cancelButtonText: 'Cancelar',
       inputValidator: (value) => {
         return new Promise((resolve) => {
           if ( value ) {

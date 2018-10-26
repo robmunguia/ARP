@@ -7,22 +7,13 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li routerLinkActive="active"> <a class="waves-effect waves-dark" [routerLink]="['/home']"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
+                <li routerLinkActive="active" *ngIf="permiso( 'Tablero' )">
+                    <a class="waves-effect waves-dark" [routerLink]="['/home']"><i class="mdi mdi-gauge"></i><span class="hide-menu">Tablero</span></a>
                 </li>
-                <li routerLinkActive="active"> <a class="waves-effect waves-dark" [routerLink]="['/requis']"><i class="mdi mdi-buffer"></i><span class="hide-menu">Requisiciones</span></a>
+                <li routerLinkActive="active" *ngIf="permiso( 'Requisiciones' )">
+                    <a class="waves-effect waves-dark" [routerLink]="['/requis']"><i class="mdi mdi-buffer"></i><span class="hide-menu">Requisiciones</span></a>
                 </li>
-                <!-- <li routerLinkActive="active">
-                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i class="mdi mdi-chart-arc"></i> Reportes</a>
-                    <ul aria-expanded="false" class="collapse">
-
-                        <li><a> Generales </a></li>
-                        <li><a> Efect Contratación </a></li>
-                        <li><a> Efect Mens de Contrata </a></li>
-                        <li><a> Requisiciones por Clientes </a></li>
-
-                    </ul>
-                </li> -->
-                <li routerLinkActive="active">
+                <li routerLinkActive="active" *ngIf="permiso( 'Reportes' )">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i class="mdi mdi-chart-arc"></i><span class="hide-menu">Reportes</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a> Generales </a></li>
@@ -31,22 +22,28 @@
                         <li><a> Requ por Clientes </a></li>
                     </ul>
                 </li>
-                <li routerLinkActive="active">
+                <li routerLinkActive="active" *ngIf="permiso( 'Proceso' )">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Procesos</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a [routerLink]="['/proceso']"> Requisiciones </a></li>
-                        <!-- <li><a> Cerrar Requisiciones  </a></li> -->
+                        <li *ngIf="permiso( 'Abrir/CancelarRequi' )"><a [routerLink]="['/proceso']">Pausar/Activar Requi </a></li>
+                        <li *ngIf="permiso( 'ModificarRequi' )"><a [routerLink]="['/modificar']"> Modificar Requi </a></li>
                     </ul>
                 </li>
-                <li routerLinkActive="active">
+                <li routerLinkActive="active" *ngIf="permiso( 'ClientesSucursal' )">
+                    <a class="waves-effect waves-dark" [routerLink]="['/clientes']" aria-expanded="false"><i class="fa fa-building"></i><span class="hide-menu">Clientes</span></a>
+                </li>
+                <li routerLinkActive="active" *ngIf="permiso( 'UsuariosSucursal' )">
+                    <a class="waves-effect waves-dark" [routerLink]="['/usuarios']" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Usuarios</span></a>
+                </li>
+                <li routerLinkActive="active" *ngIf="permiso( 'Sucursales' )">
                     <a class="waves-effect waves-dark" [routerLink]="['/sucursales']" aria-expanded="false"><i class="mdi mdi-earth"></i><span class="hide-menu">Sucursales</span></a>
                 </li>
                 <li routerLinkActive="active">
-                    <a class="waves-effect waves-dark" [routerLink]="['/users']" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">Usuarios</span></a>
+                    <a class="waves-effect waves-dark" (click)="cerrarSesion()" aria-expanded="false"><i class="mdi mdi-power"></i><span class="hide-menu">Salir</span></a>
                 </li>
-                <li routerLinkActive="active">
-                    <a class="waves-effect waves-dark" href="pages-error-404.html" aria-expanded="false"><i class="mdi mdi-laptop"></i><span class="hide-menu">Lobby</span></a>
-                </li>
+                <!-- <li routerLinkActive="active">
+                    <a class="waves-effect waves-dark" aria-expanded="false"><i class="mdi mdi-laptop"></i><span class="hide-menu">Lobby</span></a>
+                </li> -->
             </ul>
             <!-- <div class="text-center m-t-30">
                 <a href="https://wrappixel.com/templates/materialpro/" class="btn waves-effect waves-light btn-warning hidden-md-down"> Administración</a>
@@ -56,10 +53,13 @@
     </div>
     <!-- End Sidebar scroll-->
     <!-- Bottom points-->
-    <div class="sidebar-footer">
-        <!-- item--><a href="" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></a>
-        <a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-        <!-- item--><a href="#" (click)="cerrarSesion()" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-power"></i></a> </div>
+    <div *ngIf="usuario.RolId === 1" class="sidebar-footer">
+        <!-- item-->
+        <a href="#" class="link" [routerLink]="['/config']" title="Seguridad"><i class="ti-settings"></i></a>
+        <a href="#" class="link" [routerLink]="['/users']" title="Usuarios"><i class="fa fa-users"></i></a>
+        <!-- item-->
+        <a href="#" (click)="cerrarSesion()" class="link" title="Cerrar Sesión"><i class="mdi mdi-power"></i></a>
+    </div>
     <!-- End Bottom points-->
 </aside>
 <!-- ============================================================== -->

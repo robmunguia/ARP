@@ -11,13 +11,19 @@ export class UsuariosService {
 
   constructor(public http: HttpClient) { }
 
-  obtenerUsuarios( desde: number ) {
-    const url = URL_SERVICIOS + '/Usuarios?desde=' + desde;
+  obtenerUsuarios( desde: number, activos: boolean = false ) {
+    let url = URL_SERVICIOS + '/Usuarios?desde=' + desde;
+    if (activos) {
+      url = url + '&activos=true';
+    }
     return this.http.get( url );
 
   }
-  buscarUsuarios( termino: string ) {
-    const url = URL_SERVICIOS + '/Usuarios?termino=' + termino;
+  buscarUsuarios( termino: string, activos: boolean = false ) {
+    let url = URL_SERVICIOS + '/Usuarios?termino=' + termino;
+    if (activos) {
+      url = url + '&activos=true';
+    }
     return this.http.get( url );
 
   }
@@ -46,5 +52,14 @@ export class UsuariosService {
                 });
   }
 
+  guardarSucursales( usuario: Usuario ) {
+    const url = URL_SERVICIOS + '/Usuarios';
+
+    return this.http.put( url, usuario )
+    .map((data: any) => {
+      swal('Sucursales Asignadas', usuario.Nombre, 'success');
+      return data;
+    });
+  }
 
 }

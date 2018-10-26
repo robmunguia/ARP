@@ -1,3 +1,103 @@
-<p>
-  dashboard works!
-</p>
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-row">
+                    <div class="round round-lg align-self-center round-success"><i class="fa fa-trophy"></i></div>
+                    <div class="m-l-10 align-self-center">
+                        <h3 class="m-b-0 font-light"> {{ contador.activos }} </h3>
+                        <h5 class="text-muted m-b-0">Activos</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-row">
+                    <div class="round round-lg align-self-center round-info"><i class="fa fa-check"></i></div>
+                    <div class="m-l-10 align-self-center">
+                        <h3 class="m-b-0 font-lgiht"> {{ contador.confirmados }} </h3>
+                        <h5 class="text-muted m-b-0">Confirmados</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-row">
+                    <div class="round round-lg align-self-center round-danger"><i class="ti ti-arrow-circle-down"></i></div>
+                    <div class="m-l-10 align-self-center">
+                        <h3 class="m-b-0 font-lgiht"> {{ contador.bajas }} </h3>
+                        <h5 class="text-muted m-b-0">Bajas</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+</div>
+
+<div class="row">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <h4 class="card-title">Requisiciones Vencidas</h4>
+                    <!-- <div class="ml-auto">
+                        <select class="custom-select">
+                          <option selected="">January</option>
+                          <option value="1">February</option>
+                          <option value="2">March</option>
+                          <option value="3">April</option>
+                      </select>
+                    </div> -->
+                </div>
+                <div class="table-responsive m-t-20">
+                    <table class="table stylish-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Puesto</th>
+                                <th>Confirmados</th>
+                                <th>Total</th>
+                                <th>Días Vencidas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let requi of requis">
+                                <td>{{ requi.cliente.Id }}</td>
+                                <td>
+                                    <h6> {{ requi.puesto?.Nombre }} </h6>
+                                </td>
+                                <td><span class="label label-info"> {{ totalConfirmados( requi.envios ) }} </span></td>
+                                <td><span class="label label-success">{{ requi.Hombres + requi.Mujeres + requi.Indistinto }}</span></td>
+                                <td> {{ diasVencidos(requi.fecha) }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="verGrafica" class="col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">% Cumplimiento Cliente</h4>
+                <div style="display: block">
+                    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"></canvas>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-12">
+
+        <div class="card">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs profile-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active show" [routerLink]="['/config/permisos']" data-toggle="tab" href="#home" role="tab" aria-selected="true">Permisos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/config/grupos']" data-toggle="tab" href="#profile" role="tab" aria-selected="false">Grupos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/config/modulos']" data-toggle="tab" href="#settings" role="tab" aria-selected="false">Módulos</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+
+                <router-outlet></router-outlet>
+
+            </div>
+        </div>
+
+    </div>
+</div>

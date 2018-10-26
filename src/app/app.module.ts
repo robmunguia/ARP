@@ -11,6 +11,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 // ng-bootstrap
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+// Charts
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 // Modulos
 import { SharedModule } from './shared/shared.module';
 import { ServiceModule } from './services/service.module';
@@ -22,7 +25,8 @@ import { AuthComponent } from './auth/auth.component';
 import { PagesComponent } from './pages/pages.component';
 import { RequisicionComponent } from './pages/requisiciones/requisicion.component';
 import { NuevoUsuarioComponent } from './pages/usuarios/nuevo-usuario.component';
-
+import { ModificarComponent } from './pages/requisiciones/modificar.component';
+import { PermisoComponent } from './pages/settings/permiso.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,9 @@ import { NuevoUsuarioComponent } from './pages/usuarios/nuevo-usuario.component'
     AuthComponent,
     PagesComponent,
     RequisicionComponent,
-    NuevoUsuarioComponent
+    NuevoUsuarioComponent,
+    ModificarComponent,
+    PermisoComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +47,8 @@ import { NuevoUsuarioComponent } from './pages/usuarios/nuevo-usuario.component'
     PagesModule,
     FormsModule,
     NgSelectModule,
-    NgbModule
+    NgbModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

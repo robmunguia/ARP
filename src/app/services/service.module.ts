@@ -10,7 +10,11 @@ import {
     ClientesService,
     TipoNominaService,
     RequisicionesService,
-    EnviosService
+    EnviosService,
+    ConfirmacionService,
+    PermisosService,
+    ModulosService,
+    TableroService
  } from './service.index';
 
 @NgModule({
@@ -26,7 +30,11 @@ import {
         ClientesService,
         TipoNominaService,
         RequisicionesService,
-        EnviosService
+        EnviosService,
+        ConfirmacionService,
+        PermisosService,
+        ModulosService,
+        TableroService
     ],
     declarations: []
 })

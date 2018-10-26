@@ -1,3 +1,5 @@
+import { Sucursales } from './sucursal.model';
+import { Permisos } from './permisos.model';
 
 export class Usuario {
     constructor (
@@ -5,6 +7,8 @@ export class Usuario {
         public Nombre: string = '',
         public NombreUsuario: string = '',
         public Password: string = '',
+        public NewPassword: string = '',
+        public ConfPassword: string = '',
         public Estatus: number = 0,
         public CambiarPassword: boolean = false,
         public FechaPassword: Date = new Date(),
@@ -13,6 +17,8 @@ export class Usuario {
         public UltimaSalida: Date = new Date(),
         public RolId: number = 0,
         public NoEmpleado: number = 0,
-        public EmpresaId: number = 0
+        public EmpresaId: number = 0,
+        public sucursales: Sucursales[] = [],
+        public permisos: Permisos[] = []
     ) { }
 }

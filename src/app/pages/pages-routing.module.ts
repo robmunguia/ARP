@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PagesComponent } from './pages.component';
@@ -12,6 +12,17 @@ import { SucursalesComponent } from './sucursales/sucursales.component';
 import { TipoNominaComponent } from './tipo-nomina/tipo-nomina.component';
 import { EnvioComponent } from './envios/envio.component';
 import { ProcRequisicionComponent } from './requisiciones/proc-requisicion.component';
+import { ConfirmacionesComponent } from './confirmaciones/confirmaciones.component';
+import { ModificarComponent } from './requisiciones/modificar.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ListadoComponent } from './usuarios/listado.component';
+import { GruposComponent } from './settings/grupos.component';
+import { PermisosComponent } from './settings/permisos.component';
+import { PermisoComponent } from './settings/permiso.component';
+import { ParametrosComponent } from './settings/parametros.component';
+import { ModulosComponent } from './settings/modulos.component';
+import { PerfilComponent } from './user/perfil.component';
 
 
 const Rutas: Routes = [
@@ -20,15 +31,31 @@ const Rutas: Routes = [
         component: PagesComponent,
         canActivate: [ AuthGuard ],
         children: [
-            { path: 'home', component: RequisicionesComponent },
-            { path: 'requis', component: RequisicionesComponent },
-            { path: 'requis/add', component: RequisicionComponent },
-            { path: 'users', component: UsuariosComponent },
-            { path: 'users/:id', component: NuevoUsuarioComponent },
-            { path: 'sucursales', component: SucursalesComponent },
-            { path: 'nomina', component: TipoNominaComponent },
-            { path: 'envio/:id', component: EnvioComponent },
-            { path: 'proceso', component: ProcRequisicionComponent }
+            { path: 'home', component: DashboardComponent, data: { modulo: ['Tablero', 'Consultar'] } },
+            { path: 'requis', component: RequisicionesComponent, data: { modulo: ['Requisiciones', 'Consultar'] } },
+            { path: 'requis/add', component: RequisicionComponent, data: { modulo: ['Requisiciones', 'Agregar'] } },
+            { path: 'usuarios', component: ListadoComponent, data: { modulo: ['UsuariosSucursal', 'Consultar'] } },
+            { path: 'users/:id', component: NuevoUsuarioComponent, data: { modulo: ['Usuarios', 'Modificar'] } },
+            { path: 'users', component: UsuariosComponent, data: { modulo: ['Usuarios', 'Consultar'] } },
+            { path: 'perfil', component: PerfilComponent, data: { modulo: ['Usuarios', 'Consultar'] } },
+            { path: 'sucursales', component: SucursalesComponent, data: { modulo: ['Sucursales', 'Consultar'] } },
+            { path: 'nomina', component: TipoNominaComponent, data: { modulo: ['Nomina', 'Consultar'] } },
+            { path: 'envio/:id', component: EnvioComponent, data: { modulo: ['Envios', 'Consultar'] } },
+            { path: 'confirmar/:id', component: ConfirmacionesComponent, data: { modulo: ['Confirmaciones', 'Consultar'] } },
+            { path: 'proceso', component: ProcRequisicionComponent, data: { modulo: ['Abrir/CancelarRequi', 'Consultar'] } },
+            { path: 'modificar', component: ModificarComponent, data: { modulo: ['ModificarRequi', 'Consultar'] } },
+            { path: 'clientes', component: ClientesComponent, data: { modulo: ['ClientesSucursal', 'Consultar'] } },
+            {
+                path: 'config',
+                component: SettingsComponent,
+                data: { modulo: ['Administrador', 'Consultar'] },
+                children: [
+                    { path: 'grupos', component: GruposComponent, data: { modulo: ['Administrador', 'Consultar'] } },
+                    { path: 'permisos', component: PermisosComponent, data: { modulo: ['Administrador', 'Consultar'] } },
+                    { path: 'permisos/add', component: PermisoComponent, data: { modulo: ['Administrador', 'Consultar'] } },
+                    { path: 'modulos', component: ModulosComponent, data: { modulo: ['Administrador', 'Consultar'] } }
+                ]
+            }
         ]
     }
 ];

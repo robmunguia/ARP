@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="col-2 pull-left">
-                    <a class="btn waves-effect waves-light btn-info" [routerLink]="['/requis/add']"> <i class="mdi mdi-plus"></i> </a>
+                    <a *ngIf="reqPermiso?.agregar" class="btn waves-effect waves-light btn-info" [routerLink]="['/requis/add']"> <i class="mdi mdi-plus"></i> </a>
                 </div>
                 <div class="col-10 text-right pull-right">
                     <span *ngFor="let tnom of nominas" class="badge tipo-nomina" [style.backgroundColor]="tnom.Color" [style.color]="tnom.Nombre === 'Reclutamiento' ? '#000': '#fff'"> {{ tnom.Nombre }} </span>
@@ -23,7 +23,7 @@
                     No has registrado requisiciones <br> El botón azul abre el formulario para generar un nuevo requerimiento.
                 </div>
                 <div class="text-center">
-                    <a class="btn waves-effect waves-light btn-info" [routerLink]="['/requis/add']"> <i class="mdi mdi-plus"></i> </a>
+                    <a *ngIf="reqPermiso?.agregar" class="btn waves-effect waves-light btn-info" [routerLink]="['/requis/add']"> <i class="mdi mdi-plus"></i> </a>
                 </div>
 
             </div>
@@ -70,8 +70,8 @@
                             <td class="hidden-md-down">{{ req.Comentario }}</td>
                             <td>
                                 <span class="action-icons">
-                                    <a href="javascript:void(0)" [routerLink]="['/envio', req.Id ]" class="btn btn-success btn-sm text-white icon-buttons" title="Enviar"><i class="icon icon-paper-plane"></i></a>
-                                    <a href="javascript:void(0)" (click)="cerrarRequi( req )" class="btn btn-info btn-sm text-white" title="Confirmar"><i class="icon icon-check"></i></a>
+                                    <a *ngIf="enviPermiso?.consultar" href="javascript:void(0)" [routerLink]="['/envio', req.Id ]" class="btn btn-success btn-sm text-white icon-buttons" title="Enviar"><i class="icon icon-paper-plane"></i></a>
+                                    <a *ngIf="confiPermiso?.consultar" href="javascript:void(0)" [routerLink]="['/confirmar', req.Id ]" class="btn btn-info btn-sm text-white" title="Confirmar"><i class="icon icon-check"></i></a>
                                 </span>
                             </td>
                         </tr>

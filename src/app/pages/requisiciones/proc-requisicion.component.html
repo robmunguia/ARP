@@ -1,4 +1,4 @@
-<div class="row">
+<div *ngIf="!detalle" class="row">
     <div class="col-12">
         <div class="card">
             <h3 class="card-title">Realizar Proceso a Requisiciones</h3>
@@ -9,18 +9,50 @@
                 <ng-select name="requis" [items]="[]" [addTag]="true" [multiple]="true" [isOpen]="false" [(ngModel)]="requis">
                 </ng-select>
 
+                <label for="motivo">Motivo</label>
+                <textarea [(ngModel)]="motivo" name="motivo" rows="4" class="form-control"></textarea>
+
                 <div class="form-group">
                     <label>Click para cambiar de acción a las requisiciones</label>
                     <br>
-                    <button (click)="tipo = 'abrir'" *ngIf="tipo === 'cancelar'" type="button" class="btn btn-primary btn-block">Cancelar</button>
-                    <button (click)="tipo = 'cancelar'" *ngIf="tipo === 'abrir'" type="button" class="btn btn-warning btn-block">Abrir</button>
+                    <button (click)="tipo = 'abrir'" *ngIf="tipo === 'cancelar'" type="button" class="btn btn-primary btn-block">Pausar</button>
+                    <button (click)="tipo = 'cancelar'" *ngIf="tipo === 'abrir'" type="button" class="btn btn-warning btn-block">Activar</button>
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" (click)="procesar()" class="btn btn-info waves-effect waves-light m-r-10">Procesar</button>
+                    <button *ngIf="permiso.agregar" type="submit" (click)="procesar()" class="btn btn-info waves-effect waves-light m-r-10">Procesar</button>
                 </div>
 
             </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="detalle" class="row">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="card-title">Procesados</h3>
+
+            <table>
+                <thead>
+                    <th>#</th>
+                    <th>Acción</th>
+                    <th>Estatus</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let req of listado">
+                        <td>{{ req.reqId }}</td>
+                        <td>{{ tipo }}</td>
+                        <td>{{ req.msg }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+
+            <div class="form-group">
+                <button type="button" (click)="reinicio()" class="btn btn-info waves-effect waves-light m-r-10">Acpetar</button>
+            </div>
+
         </div>
     </div>
 </div>

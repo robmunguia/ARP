@@ -4,6 +4,7 @@ import swal from 'sweetalert2';
 import { Cliente, Fecha, Puesto, Requisicion, TipoNomina, Turno } from '../../models/models.index';
 import { AuthService, ClientesService, TipoNominaService, RequisicionesService } from '../../services/service.index';
 import { Router } from '@angular/router';
+import { Permisos } from '../../models/permisos.model';
 
 @Component({
   selector: 'app-requisicion',

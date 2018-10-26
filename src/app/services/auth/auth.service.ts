@@ -52,4 +52,22 @@ export class AuthService {
 
   }
 
+  cargarPerfil( usuario: Usuario ) {
+    const url = URL_SERVICIOS + '/Auth/' + usuario.Id;
+
+    return this.http.put( url, usuario )
+    .map((data: any) => {
+      return data;
+    });
+  }
+
+  cambiarClave( usuario: Usuario ) {
+    const url = URL_SERVICIOS + '/Auth/' + usuario.Id;
+
+    return this.http.post( url, usuario )
+    .map((data: any) => {
+      return data;
+    });
+  }
+
 }

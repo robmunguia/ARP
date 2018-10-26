@@ -15,7 +15,9 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Pipes
-import { FechaPipe } from '../pipes/fecha.pipe';
+import { PipesModule } from '../pipes/pipes.module';
+// import { FechaPipe } from '../pipes/fecha.pipe';
+// import { ImagenPipe } from '../pipes/imagen.pipe';
 
 // Modulos
 import { SharedModule } from '../shared/shared.module';
@@ -27,6 +29,14 @@ import { EnviosComponent } from './envios/envios.component';
 import { EnvioComponent } from './envios/envio.component';
 import { ProcRequisicionComponent } from './requisiciones/proc-requisicion.component';
 import { ConfirmacionesComponent } from './confirmaciones/confirmaciones.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { SettingsComponent } from './settings/settings.component';
+import { ListadoComponent } from './usuarios/listado.component';
+import { PermisosComponent } from './settings/permisos.component';
+import { GruposComponent } from './settings/grupos.component';
+import { ParametrosComponent } from './settings/parametros.component';
+import { ModulosComponent } from './settings/modulos.component';
+import { PerfilComponent } from './user/perfil.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +48,14 @@ import { ConfirmacionesComponent } from './confirmaciones/confirmaciones.compone
   EnvioComponent,
   ProcRequisicionComponent,
   ConfirmacionesComponent,
-  FechaPipe
+  ClientesComponent,
+  SettingsComponent,
+  ListadoComponent,
+  PermisosComponent,
+  GruposComponent,
+  ParametrosComponent,
+  ModulosComponent,
+  PerfilComponent
 ],
   imports: [
     BrowserModule,
@@ -47,7 +64,8 @@ import { ConfirmacionesComponent } from './confirmaciones/confirmaciones.compone
     FormsModule,
     NgSelectModule,
     ColorPickerModule,
-    NgbModule
+    NgbModule,
+    PipesModule
   ],
   providers: []
 })

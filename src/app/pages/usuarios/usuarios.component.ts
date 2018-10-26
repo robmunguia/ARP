@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService, RolesService } from '../../services/service.index';
-import { Estatus, Usuario, Roles } from '../../models/models.index';
+import { UsuariosService, RolesService, AuthService } from '../../services/service.index';
+import { Estatus, Usuario, Roles, Permisos } from '../../models/models.index';
 import { estados } from '../../config/config';
 import swal from 'sweetalert2';
 
@@ -11,6 +11,7 @@ import swal from 'sweetalert2';
 })
 export class UsuariosComponent implements OnInit {
 
+  permiso: Permisos = new Permisos();
   usuarios: Usuario[] = [];
   roles: Roles[] = [];
   desde: number;
@@ -18,10 +19,13 @@ export class UsuariosComponent implements OnInit {
   cargando: boolean;
   estados: Estatus[] = [];
 
-  constructor( public _usuarioService: UsuariosService,
+  constructor(public _usuarioService: UsuariosService,
+              public _authService: AuthService,
               public _rolesService: RolesService ) {
     this.desde = 0;
     this.estados = estados;
+    this.permiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Usuarios'
+                && p.grupo.Id === this._authService.usuario.RolId);
   }
 
   ngOnInit() {

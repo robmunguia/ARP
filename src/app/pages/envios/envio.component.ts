@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EnviosService, AuthService } from '../../services/service.index';
-import { Requisicion, Envio, Fecha } from '../../models/models.index';
+import { Requisicion, Envio, Permisos } from '../../models/models.index';
 
 @Component({
   selector: 'app-envio',
@@ -10,6 +10,7 @@ import { Requisicion, Envio, Fecha } from '../../models/models.index';
 })
 export class EnvioComponent implements OnInit {
 
+  permiso: Permisos = new Permisos();
   requi: Requisicion = new Requisicion();
   envio: Envio = new Envio();
   TEnvio: Envio = new Envio();
@@ -20,10 +21,11 @@ export class EnvioComponent implements OnInit {
   E_M: number = this.envio.mujer;
   E_I: number = this.envio.indistinto;
 
-
   constructor(public _envioService: EnviosService,
               public _authService: AuthService,
               public activatedRoute: ActivatedRoute) {
+                this.permiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Envios'
+                  && p.grupo.Id === this._authService.usuario.RolId);
 
                 this.activatedRoute.params.subscribe( params => {
                   this.cargarInfo( params['id'] );
@@ -45,10 +47,13 @@ export class EnvioComponent implements OnInit {
         this.TEnvio.hombre += envi.hombre;
         this.TEnvio.mujer += envi.mujer;
         this.TEnvio.indistinto += envi.indistinto;
+        this.T_H += envi.estatus === 'Confirmado' ? envi.confhombre : 0;
+        this.T_M += envi.estatus === 'Confirmado' ? envi.confmujer : 0;
+        this.T_I += envi.estatus === 'Confirmado' ? envi.confindistinto : 0;
       }
-      this.T_H = this.requi.Hombres - this.TEnvio.hombre;
-      this.T_M = this.requi.Mujeres - this.TEnvio.mujer;
-      this.T_I = this.requi.Indistinto - this.TEnvio.indistinto;
+      this.T_H = this.requi.Hombres - this.T_H;
+      this.T_M = this.requi.Mujeres - this.T_M;
+      this.T_I = this.requi.Indistinto - this.T_I;
     });
   }
 
@@ -58,7 +63,7 @@ export class EnvioComponent implements OnInit {
       this.envio.usuario = this._authService.usuario;
 
       this._envioService.guardaEnvios( this.envio )
-      .subscribe((data: any) => {
+      .subscribe(() => {
         this.envio = new Envio();
         this.cargarInfo( this.requi.Id );
       });

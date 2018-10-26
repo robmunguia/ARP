@@ -1,22 +1,21 @@
 <div class="row">
     <div class="col-12">
-        <div class="card">
-
+        <div class="ribbon-wrapper card">
+            <div class="ribbon ribbon-info">{{ requi.DesEstatus }}</div>
             <div class="card-body">
-                <div class="col-6 pull-left">
-                    <h3 class="card-title">{{ requi.cliente.Descripcion }}</h3>
-                    <h4 class="card-title"> {{ requi.fecha | fecha }} <span class="card-subtitle">H</span> {{ requi.Hombres }} <span class="card-subtitle">M</span> {{ requi.Mujeres }} <span class="card-subtitle">I</span> {{ requi.Indistinto }} </h4>
-                </div>
-                <div class="col-6 pull-right">
-                    <h3 class="card-title text-right"> Restante <span class="card-subtitle">H</span> {{ T_H }} <span class="card-subtitle">M</span> {{ T_M }} <span class="card-subtitle">I</span> {{ T_I }} </h3>
-                    <h4 class="card-title text-right"> Envios <span class="card-subtitle">H</span> {{ TEnvio.hombre }} <span class="card-subtitle">M</span> {{ TEnvio.mujer }} <span class="card-subtitle">I</span> {{ TEnvio.indistinto }} </h4>
+                <h3 class="card-title text-center">Requisición: {{ requi.Id }} <span>{{ requi.cliente.Descripcion }}</span> </h3>
+                <h4 class="card-title text-center"> {{ requi.fecha | fecha }} <span class="card-subtitle">H</span> {{ requi.Hombres }} <span class="card-subtitle">M</span> {{ requi.Mujeres }} <span class="card-subtitle">I</span> {{ requi.Indistinto }} </h4>
+                <hr>
+                <h3 class="card-title"></h3>
+                <div class="col-6">
+                    <h3 class="card-title"> Restante <span class="card-subtitle">H</span> {{ T_H }} <span class="card-subtitle">M</span> {{ T_M }} <span class="card-subtitle">I</span> {{ T_I }} </h3>
+                    <h4 class="card-title"> Envios <span class="card-subtitle">H</span> {{ TEnvio.hombre }} <span class="card-subtitle">M</span> {{ TEnvio.mujer }} <span class="card-subtitle">I</span> {{ TEnvio.indistinto }} </h4>
                 </div>
 
             </div>
         </div>
     </div>
 </div>
-
 
 <div class="row">
     <div class="col-12">
@@ -28,19 +27,19 @@
 
                     <div class="form-group col-md-4">
                         <label>H</label>
-                        <input [(ngModel)]="envio.hombre" min="0" [max]="(requi.Hombres - TEnvio.hombre)" name="hombres" type="number" class="form-control form-control-line" placeholder="Hombres" required />
+                        <input [(ngModel)]="envio.hombre" min="0" [max]="T_H" name="hombres" type="number" class="form-control form-control-line" placeholder="Hombres" required />
                     </div>
                     <div class="form-group col-md-4">
                         <label>M</label>
-                        <input [(ngModel)]="envio.mujer" min="0" [max]="(requi.Mujeres - TEnvio.mujer)" name="mujeres" type="number" class="form-control" placeholder="Mujeres" required />
+                        <input [(ngModel)]="envio.mujer" min="0" [max]="T_M" name="mujeres" type="number" class="form-control" placeholder="Mujeres" required />
                     </div>
                     <div class="form-group col-md-4">
                         <label>I</label>
-                        <input [(ngModel)]="envio.indistinto" min="0" [max]="(requi.Indistinto - TEnvio.indistinto)" name="indistinto" type="number" class="form-control" placeholder="Indistintos" required />
+                        <input [(ngModel)]="envio.indistinto" min="0" [max]="T_I" name="indistinto" type="number" class="form-control" placeholder="Indistintos" required />
                     </div>
 
                     <div class="form-group col-md-12">
-                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                        <button *ngIf="permiso.agregar" type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
                         <a href="#" [routerLink]="['/requis']" class="btn btn-inverse waves-effect waves-light m-r-10">Cancelar</a>
                     </div>
 
@@ -54,7 +53,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <h3 class="card-title">Envios Anteriores</h3>
+            <h3 class="card-title">Envios Realizados</h3>
             <div class="card-body">
 
                 <div *ngIf="requi.envios.length === 0" class="alert alert-warning" role="alert">

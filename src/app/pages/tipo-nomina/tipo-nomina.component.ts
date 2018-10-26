@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TipoNominaService } from '../../services/service.index';
-import { TipoNomina } from '../../models/models.index';
+import { TipoNominaService, AuthService } from '../../services/service.index';
+import { TipoNomina, Permisos } from '../../models/models.index';
 
 @Component({
   selector: 'app-tipo-nomina',
@@ -9,10 +9,15 @@ import { TipoNomina } from '../../models/models.index';
 })
 export class TipoNominaComponent implements OnInit {
 
+  permiso: Permisos = new Permisos();
   tnominas: TipoNomina[] = [];
   cargando: boolean;
 
-  constructor(public _tnominaService: TipoNominaService) { }
+  constructor(public _tnominaService: TipoNominaService,
+              public _authService: AuthService) {
+                this.permiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Nomina'
+                && p.grupo.Id === this._authService.usuario.RolId);
+              }
 
   ngOnInit() {
     this.cargarTNominas();

@@ -1,0 +1,60 @@
+<div class="row animated fadeIn" *ngIf="cargando">
+
+    <div class="col-sm-12">
+
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="text-right">
+                    <button (click)="crear()" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                    <i class="fa fa-plus"></i> 
+                    Crear Modulo
+                </button>
+                </div>
+
+                <h3 class="card-title">Sucursales registrados ( <small>{{ modulos.length }}</small> )</h3>
+
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th>Nombre</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let modu of modulos">
+                            <td>
+                                <strong>{{ modu.id }}</strong>
+                            </td>
+                            <td>
+                                <input [(ngModel)]="modu.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del módulo" />
+                            </td>
+
+                            <td>
+                                <button (click)="modificar( modu )" class="btn btn-primary">
+                                <i class="fa fa-save"></i>
+                              </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

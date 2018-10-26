@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequisicionesService, TipoNominaService, AuthService } from '../../services/service.index';
-import { Requisiciones, TipoNomina, Requisicion } from '../../models/models.index';
+import { Requisiciones, TipoNomina, Requisicion, Permisos } from '../../models/models.index';
 import swal from 'sweetalert2';
 
 @Component({
@@ -10,12 +10,24 @@ import swal from 'sweetalert2';
 })
 export class RequisicionesComponent implements OnInit {
 
+  // Permisos en listados
+  reqPermiso: Permisos = new Permisos();
+  enviPermiso: Permisos = new Permisos();
+  confiPermiso: Permisos = new Permisos();
+
   ReqClientes: Requisiciones[] = [];
   nominas: TipoNomina[] = [];
 
   constructor(public _requisService: RequisicionesService,
               public _authService: AuthService,
-              public _tnominaService: TipoNominaService) { }
+              public _tnominaService: TipoNominaService) {
+                this.reqPermiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Requisiciones'
+                && p.grupo.Id === this._authService.usuario.RolId);
+                this.enviPermiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Envios'
+                && p.grupo.Id === this._authService.usuario.RolId);
+                this.confiPermiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Confirmaciones'
+                && p.grupo.Id === this._authService.usuario.RolId);
+              }
 
   ngOnInit() {
     this.cargarTipoNominas();

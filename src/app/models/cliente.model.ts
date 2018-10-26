@@ -1,5 +1,6 @@
 import { Puesto } from './puesto.model';
 import { Turno } from './turno.model';
+import { Sucursales } from './sucursal.model';
 
 export class Cliente {
     constructor (
@@ -8,6 +9,8 @@ export class Cliente {
         public Nombre: string = '',
         public Descripcion: string = '',
         public Turnos: Turno[] = [],
-        public Puestos: Puesto[] = []
+        public Puestos: Puesto[] = [],
+        public Total: number = 0,
+        public sucursales: Sucursales[] = []
     ) { }
 }

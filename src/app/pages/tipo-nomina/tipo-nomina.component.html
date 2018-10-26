@@ -46,7 +46,7 @@
                                 <input [(ngModel)]="nomis.Color" [(colorPicker)]="nomis.Color" [style.background]="nomis.Color" class="text-white" />
                             </td>
                             <td>
-                                <button (click)="guardar( nomis )" class="btn btn-primary">
+                                <button *ngIf="permiso?.agregar" (click)="guardar( nomis )" class="btn btn-primary">
                                   <i class="fa fa-save"></i>
                                 </button>
 
