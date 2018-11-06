@@ -8,12 +8,14 @@ import { URL_SERVICIOS } from '../config/config';
 export class ImagenPipe implements PipeTransform {
 
   transform(usuario: Usuario): any {
-    let url = URL_SERVICIOS + '/Auth/';
+    let url = URL_SERVICIOS + '/Auth/image?id=';
+
     if ( usuario === null ) {
       url = url + '999999';
     } else {
       url = url + usuario.Id;
     }
+
     return url;
   }
 

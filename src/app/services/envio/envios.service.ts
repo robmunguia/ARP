@@ -12,7 +12,7 @@ export class EnviosService {
   constructor(public http: HttpClient) { }
 
   ObtieneInfoRequi( id: number = 0 ) {
-    const url = URL_SERVICIOS + '/Requisicion/' + id;
+    const url = URL_SERVICIOS + '/Requisicion?id=' + id;
     return this.http.get( url );
   }
 
@@ -27,8 +27,8 @@ export class EnviosService {
   }
 
   confirmacionEnvios( envio: Envio ) {
-    const url = URL_SERVICIOS + '/Envio';
-    return this.http.put( url, envio )
+    const url = URL_SERVICIOS + '/Confirmar';
+    return this.http.post( url, envio )
     .map((data: Envio) => {
       swal('Se confirmó el envio', `H  ${ envio.confhombre } M ${ envio.confmujer } I ${ envio.confindistinto }`, 'success' );
       return data;

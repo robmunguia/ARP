@@ -11,22 +11,19 @@ export class ClientesService {
 
   constructor(public http: HttpClient) { }
 
-  obtenerClientes( usuario: Usuario ) {
+  obtenerClientes( token: string ) {
     const url = URL_SERVICIOS + '/Clientes';
-    return this.http.post( url, usuario )
-    .map((data: any) => {
-      return data;
-    });
+    return this.http.get( url );
   }
 
   cargarClientes( desde: number ) {
-    const url = URL_SERVICIOS + '/Clientes?desde=' + desde;
+    const url = URL_SERVICIOS + '/clientes/desde?pag=' + desde;
     return this.http.get( url );
 
   }
 
   guardarSucursal( clie: Cliente ) {
-    const url = URL_SERVICIOS + '/Clientes/' + clie.LLAVE;
+    const url = URL_SERVICIOS + '/Clientes';
     return this.http.put( url, clie )
     .map((data: any) => {
       swal('Asignado Correctamente', clie.Descripcion, 'success');
@@ -36,7 +33,7 @@ export class ClientesService {
 
 
   buscarClientes( termino: string ) {
-    const url = URL_SERVICIOS + '/Clientes?termino=' + termino;
+    const url = URL_SERVICIOS + 'clientes/termino?term=' + termino;
     return this.http.get( url );
   }
 

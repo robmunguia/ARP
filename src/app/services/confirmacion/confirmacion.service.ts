@@ -10,7 +10,7 @@ export class ConfirmacionService {
   constructor(public http: HttpClient) { }
 
   ObtieneInfoRequi( id: number = 0 ) {
-    const url = URL_SERVICIOS + '/Requisicion/' + id;
+    const url = URL_SERVICIOS + '/Requisicion?id=' + id;
     return this.http.get( url );
   }
 

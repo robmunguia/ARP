@@ -12,11 +12,11 @@ export class PermisosService {
   constructor(public http: HttpClient) { }
 
   obtenerPermisos( desde: number ) {
-    const url = URL_SERVICIOS + '/Permisos?desde=' + desde;
+    const url = URL_SERVICIOS + '/permisos/pag?desde=' + desde;
     return this.http.get( url );
   }
   buscarPermisos( termino: string ) {
-    const url = URL_SERVICIOS + '/Permisos?termino=' + termino;
+    const url = URL_SERVICIOS + '/permisos/term?termino=' + termino;
     return this.http.get( url );
   }
 

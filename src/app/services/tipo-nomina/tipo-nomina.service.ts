@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { TipoNomina } from '../../models/models.index';
 import swal from 'sweetalert2';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TipoNominaService {
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient,
+              public authService: AuthService) { }
 
   obtieneTiposNominas() {
     const url = URL_SERVICIOS + '/Nomina';
@@ -17,7 +19,7 @@ export class TipoNominaService {
   }
 
   obtenerTipoNominasActivas() {
-    const url = URL_SERVICIOS + '/Nomina/1';
+    const url = URL_SERVICIOS + '/Nomina/activas';
     return this.http.get( url );
   }
 

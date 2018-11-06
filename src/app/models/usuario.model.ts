@@ -7,6 +7,7 @@ export class Usuario {
         public Nombre: string = '',
         public NombreUsuario: string = '',
         public Password: string = '',
+        public Token: string = '',
         public NewPassword: string = '',
         public ConfPassword: string = '',
         public Estatus: number = 0,

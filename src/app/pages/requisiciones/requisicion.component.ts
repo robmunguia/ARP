@@ -57,7 +57,7 @@ export class RequisicionComponent implements OnInit {
   }
 
   cargarClientes() {
-    this._clienteService.obtenerClientes( this._authService.usuario )
+    this._clienteService.obtenerClientes( this._authService.usuario.Token )
     .subscribe((data: Cliente[]) => {
       this.clientes = data;
     });
@@ -65,7 +65,6 @@ export class RequisicionComponent implements OnInit {
 
   guardar() {
     if (this.validaciones()) {
-      this.requi.usuario = this._authService.usuario;
       this._requisService.guardarRequisicion( this.requi )
       .subscribe((data: any) => {
         this.router.navigate(['/requis']);

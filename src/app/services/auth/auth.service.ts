@@ -5,6 +5,12 @@ import { URL_SERVICIOS } from '../../config/config';
 import { Usuario } from '../../models/usuario.model';
 import 'rxjs/add/operator/map';
 
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.reducers';
+import { ActivarLoadingAction, DesactivarLoadingAction } from '../../store/actions/ui.actions';
+import { SetUserAction } from 'src/app/store/actions/auth.actions';
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,6 +20,7 @@ export class AuthService {
 
   constructor(
     public http: HttpClient,
+    private store: Store<AppState>,
     public router: Router) {
     this.cargarStorage();
   }
@@ -24,7 +31,7 @@ export class AuthService {
 
   cargarStorage() {
     if ( localStorage.getItem('usuario') ) {
-      this.usuario = JSON.parse( localStorage.getItem('usuario') );
+      this.usuario = JSON.parse(localStorage.getItem('usuario'));
     } else {
       this.usuario = null;
     }
@@ -42,27 +49,27 @@ export class AuthService {
   }
 
   iniciarSesion( usuario: Usuario ) {
-    const url = URL_SERVICIOS + '/auth';
+    const url = URL_SERVICIOS + '/Auth';
+
+    this.store.dispatch( new ActivarLoadingAction() );
 
     return this.http.post( url, usuario )
-    .map( (user: any) => {
-      this.guardarStorage( user );
-      return user;
-    });
-
+      .map( (user: Usuario) => {
+        this.guardarStorage( user );
+        this.store.dispatch( new DesactivarLoadingAction() );
+        this.store.dispatch( new SetUserAction( user ) );
+        return user;
+      });
   }
 
   cargarPerfil( usuario: Usuario ) {
-    const url = URL_SERVICIOS + '/Auth/' + usuario.Id;
+    const url = URL_SERVICIOS + '/Auth/perfil';
 
-    return this.http.put( url, usuario )
-    .map((data: any) => {
-      return data;
-    });
+    return this.http.get( url );
   }
 
   cambiarClave( usuario: Usuario ) {
-    const url = URL_SERVICIOS + '/Auth/' + usuario.Id;
+    const url = URL_SERVICIOS + '/Auth/change';
 
     return this.http.post( url, usuario )
     .map((data: any) => {

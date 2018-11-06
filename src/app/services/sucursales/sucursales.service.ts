@@ -26,7 +26,7 @@ export class SucursalesService {
   }
 
   modificarSucursal( sucursal: Sucursales ) {
-    const url = URL_SERVICIOS + '/Sucursales/' + sucursal.Id;
+    const url = URL_SERVICIOS + '/Sucursales';
     return this.http.put( url, sucursal )
     .map((data: Sucursales) => {
       swal('Sucursal Modificada', sucursal.Nombre, 'success');

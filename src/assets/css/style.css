@@ -7447,9 +7447,9 @@ When click on sidebar toggler and also for tablet
     }
     .mini-sidebar .sidebar-nav #sidebarnav>li:hover>a {
         width: 260px;
-        background: #26c6da;
+        background: #51b748;
         color: #ffffff;
-        border-color: #009efb;
+        border-color: #51b748;
     }
     .mini-sidebar .sidebar-nav #sidebarnav>li:hover>a i {
         color: #ffffff;
@@ -7461,7 +7461,7 @@ When click on sidebar toggler and also for tablet
         border-color: transparent;
     }
     .mini-sidebar .sidebar-nav #sidebarnav>li.active>a.active {
-        border-color: #009efb;
+        border-color: #51b748;
     }
 }
 

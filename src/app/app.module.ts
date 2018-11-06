@@ -19,6 +19,13 @@ import { SharedModule } from './shared/shared.module';
 import { ServiceModule } from './services/service.module';
 import { PagesModule } from './pages/pages.module';
 
+// NGRX (Store, Reducer)
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './store/app.reducers';
+// DevTools
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthComponent } from './auth/auth.component';
@@ -48,6 +55,11 @@ import { PermisoComponent } from './pages/settings/permiso.component';
     FormsModule,
     NgSelectModule,
     NgbModule,
+    StoreModule.forRoot( appReducers ),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
     ChartsModule
   ],
   providers: [],

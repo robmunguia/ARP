@@ -12,7 +12,7 @@ export class UsuariosService {
   constructor(public http: HttpClient) { }
 
   obtenerUsuarios( desde: number, activos: boolean = false ) {
-    let url = URL_SERVICIOS + '/Usuarios?desde=' + desde;
+    let url = URL_SERVICIOS + '/ususarios/pag?desde=' + desde;
     if (activos) {
       url = url + '&activos=true';
     }
@@ -20,15 +20,15 @@ export class UsuariosService {
 
   }
   buscarUsuarios( termino: string, activos: boolean = false ) {
-    let url = URL_SERVICIOS + '/Usuarios?termino=' + termino;
+    let url = URL_SERVICIOS + '/ususarios/term?termino=' + termino;
     if (activos) {
       url = url + '&activos=true';
     }
     return this.http.get( url );
-
   }
+
   obtenerUsuario( id: number ) {
-    const url = URL_SERVICIOS + '/Usuarios/' + id;
+    const url = URL_SERVICIOS + '/Usuarios?id=' + id;
     return this.http.get( url );
   }
 
@@ -43,7 +43,7 @@ export class UsuariosService {
   }
 
   modificarUsuario (usuario: Usuario) {
-    const url = URL_SERVICIOS + '/Usuarios/' + usuario.Id;
+    const url = URL_SERVICIOS + '/usuario/editar';
 
     return this.http.put( url, usuario )
                 .map( (resp: any) => {

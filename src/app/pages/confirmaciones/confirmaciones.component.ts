@@ -78,8 +78,6 @@ export class ConfirmacionesComponent implements OnInit {
       }).then((result) => {
         if (result.value) {
 
-          envi.confUser = this._authService.usuario;
-
           this._envioService.confirmacionEnvios( envi )
           .subscribe((data: Envio) => {
             envi.estatus = 'Confirmado';

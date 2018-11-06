@@ -26,7 +26,7 @@ export class RolesService {
   }
 
   modificarRol( rol: Roles ) {
-    const url = URL_SERVICIOS + '/Grupos/' + rol.Id;
+    const url = URL_SERVICIOS + '/Grupos';
 
     return this.http.put( url, rol )
     .map( (resp: any) => {

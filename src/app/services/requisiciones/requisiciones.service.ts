@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { URL_SERVICIOS } from '../../config/config';
 import { Requisicion, Usuario } from '../../models/models.index';
 import swal from 'sweetalert2';
 import { Proceso } from '../../models/proceso.model';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequisicionesService {
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, public authService: AuthService ) { }
 
   obtenerRequi( id: number) {
-    const url = URL_SERVICIOS + '/Requisicion/' + id;
+    const url = URL_SERVICIOS + '/Requisicion?id=' + id;
     return this.http.get( url );
   }
 
@@ -22,13 +23,10 @@ export class RequisicionesService {
     return this.http.get( url );
   }
 
-  cargarRequUsuarioAbiertas( usuario: Usuario ) {
-    const url = URL_SERVICIOS + '/Requisicion';
+  cargarRequUsuarioAbiertas() {
+    const url = URL_SERVICIOS + '/requis/abiertas';
 
-    return this.http.put( url, usuario )
-    .map((data: any) => {
-      return data;
-    });
+    return this.http.get( url );
   }
 
   guardarRequisicion( requisicon: Requisicion ) {
@@ -41,8 +39,8 @@ export class RequisicionesService {
   }
 
   actualizacion(requi: Requisicion) {
-    const url = URL_SERVICIOS + '/Requisicion/' + requi.Id;
-    return this.http.post( url, requi )
+    const url = URL_SERVICIOS + '/Requisicion';
+    return this.http.put( url, requi )
     .map((data: any) => {
       swal('Requisición Modificada', requi.Id.toString(), 'success');
       return data;

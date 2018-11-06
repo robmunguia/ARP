@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, TableroService } from 'src/app/services/service.index';
-import { Requisicion, Fecha, Grafica, Tablero } from 'src/app/models/models.index';
+import { Requisicion, Fecha, Grafica, Tablero, EnvConfirmados } from 'src/app/models/models.index';
 import { Envio } from '../../models/envios.model';
 
 @Component({
@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
 
   requis: Requisicion[] = [];
   grafica: Grafica[] = [];
+  envConfirmado: EnvConfirmados[] = [];
   contador: Tablero = new Tablero();
   verGrafica = false;
 
@@ -35,11 +36,12 @@ export class DashboardComponent implements OnInit {
       this.contador.activos = data.activos;
       this.contador.bajas = data.bajas;
       this.contador.confirmados = data.confirmados;
+      this.envConfirmado = data.enviados;
     });
   }
 
   cargarGrafica() {
-    this.tableroService.cargarCumplimientoCliente( this.authService.usuario )
+    this.tableroService.cargarCumplimientoCliente()
     .subscribe((data: any) => {
       this.grafica = data;
       for (const gr of this.grafica) {
@@ -61,7 +63,7 @@ export class DashboardComponent implements OnInit {
   }
 
   diasVencidos( d: Fecha ): number {
-    const fecRequi = new Date(d.year, d.month + 1, d.day);
+    const fecRequi = new Date(d.year, d.month - 1, d.day);
     const fecActual = new Date();
 
     const diff = Math.abs(fecActual.getTime() - fecRequi.getTime());

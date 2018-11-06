@@ -35,7 +35,7 @@ export class RequisicionesComponent implements OnInit {
   }
 
   cargarRequis() {
-    this._requisService.cargarRequUsuarioAbiertas( this._authService.usuario )
+    this._requisService.cargarRequUsuarioAbiertas()
     .subscribe((data: any) => {
       this.ReqClientes = data;
       for (const clie of this.ReqClientes) {

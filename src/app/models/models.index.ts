@@ -17,3 +17,4 @@ export { Permisos } from './permisos.model';
 export { Grafica } from './grafica.model';
 export { Tablero } from './contador.model';
 export { Perfil } from './perfil.model';
+export { EnvConfirmados } from './envconf.model';

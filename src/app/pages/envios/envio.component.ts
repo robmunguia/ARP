@@ -60,7 +60,6 @@ export class EnvioComponent implements OnInit {
   guardar() {
     if ( this.validaciones() ) {
       this.envio.requisicion = this.requi;
-      this.envio.usuario = this._authService.usuario;
 
       this._envioService.guardaEnvios( this.envio )
       .subscribe(() => {
