@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Sucursales } from '../../models/sucursal.model';
-import { SucursalesService, AuthService } from '../../services/service.index';
+import { SucursalesService, AuthService, PermisosService } from '../../services/service.index';
 import swal from 'sweetalert2';
 import { Subscription } from 'node_modules/rxjs';
 import { Permisos } from 'src/app/models/models.index';
@@ -18,14 +18,20 @@ export class SucursalesComponent implements OnInit {
   subscription: Subscription;
 
   constructor(public _sucursalService: SucursalesService,
+              public permService: PermisosService,
               public authService: AuthService) {
-
-                this.permiso = this.authService.usuario.permisos.find( p => p.modulo.nombre === 'Sucursales'
-                && p.grupo.Id === this.authService.usuario.RolId);
+                this.cargarPermiso( 'Sucursales' );
   }
 
   ngOnInit() {
     this.cargarSucursales();
+  }
+
+  cargarPermiso( modulo: string ) {
+    return this.permService.cargarPermiso( modulo )
+    .subscribe((data: Permisos) => {
+      this.permiso = data;
+    });
   }
 
   cargarSucursales() {

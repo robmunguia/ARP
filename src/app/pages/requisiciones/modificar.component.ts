@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RequisicionesService, TipoNominaService, AuthService } from '../../services/service.index';
+import { RequisicionesService, TipoNominaService, AuthService, PermisosService } from '../../services/service.index';
 import { Requisicion, TipoNomina, Permisos } from '../../models/models.index';
 
 @Component({
@@ -16,16 +16,23 @@ export class ModificarComponent implements OnInit {
   readOnlyHM: boolean;
 
   constructor(public requiService: RequisicionesService,
+              public permService: PermisosService,
               public _authService: AuthService,
               public _tnominaService: TipoNominaService) {
-                this.permiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'ModificarRequi'
-                && p.grupo.Id === this._authService.usuario.RolId);
+                this.cargarPermiso( 'ModificarRequi' );
               }
 
   ngOnInit() {
     this.readOnlyIndi = false;
     this.readOnlyHM = false;
     this.cargarTipoNominas();
+  }
+
+  cargarPermiso( modulo: string ) {
+    return this.permService.cargarPermiso( modulo )
+    .subscribe((data: Permisos) => {
+      this.permiso = data;
+    });
   }
 
   cargarTipoNominas() {

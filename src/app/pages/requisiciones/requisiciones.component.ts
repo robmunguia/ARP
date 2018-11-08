@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RequisicionesService, TipoNominaService, AuthService } from '../../services/service.index';
+import { RequisicionesService, TipoNominaService, AuthService, PermisosService } from '../../services/service.index';
 import { Requisiciones, TipoNomina, Requisicion, Permisos } from '../../models/models.index';
 import swal from 'sweetalert2';
 
@@ -19,19 +19,30 @@ export class RequisicionesComponent implements OnInit {
   nominas: TipoNomina[] = [];
 
   constructor(public _requisService: RequisicionesService,
+              public permService: PermisosService,
               public _authService: AuthService,
               public _tnominaService: TipoNominaService) {
-                this.reqPermiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Requisiciones'
-                && p.grupo.Id === this._authService.usuario.RolId);
-                this.enviPermiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Envios'
-                && p.grupo.Id === this._authService.usuario.RolId);
-                this.confiPermiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Confirmaciones'
-                && p.grupo.Id === this._authService.usuario.RolId);
+                this.cargarPermiso( 'Requisiciones' );
+                this.cargarPermiso( 'Envios' );
+                this.cargarPermiso( 'Confirmaciones' );
               }
 
   ngOnInit() {
     this.cargarTipoNominas();
     this.cargarRequis();
+  }
+
+  cargarPermiso( modulo: string ) {
+    return this.permService.cargarPermiso( modulo )
+    .subscribe((data: Permisos) => {
+      if ( modulo === 'Requisiciones') {
+        this.reqPermiso = data;
+      } else if ( modulo === 'Envios') {
+        this.enviPermiso = data;
+      } else if ( modulo === 'Confirmaciones') {
+        this.confiPermiso = data;
+      }
+    });
   }
 
   cargarRequis() {

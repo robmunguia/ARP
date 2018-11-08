@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService, SucursalesService } from '../../services/service.index';
+import { UsuariosService, SucursalesService, PermisosService } from '../../services/service.index';
 import { Usuario, Sucursales } from '../../models/models.index';
+import { Permisos } from '../../models/permisos.model';
 
 @Component({
   selector: 'app-listado',
@@ -9,6 +10,7 @@ import { Usuario, Sucursales } from '../../models/models.index';
 })
 export class ListadoComponent implements OnInit {
 
+  permiso: Permisos = new Permisos();
   usuarios: Usuario[] = [];
   sucursales: Sucursales[] = [];
   cargando = false;
@@ -16,13 +18,23 @@ export class ListadoComponent implements OnInit {
   totalRegistros: number;
 
   constructor(public userService: UsuariosService,
-              public sucuService: SucursalesService) { }
+              public permService: PermisosService,
+              public sucuService: SucursalesService) {
+                this.cargarPermiso( 'UsuariosSucursal' );
+              }
 
   ngOnInit() {
     this.desde = 0;
     this.totalRegistros = 0;
     this.cargarSucursales();
     this.cargarUsuarios();
+  }
+
+  cargarPermiso( modulo: string ) {
+    return this.permService.cargarPermiso( modulo )
+    .subscribe((data: Permisos) => {
+      this.permiso = data;
+    });
   }
 
   cargarSucursales() {

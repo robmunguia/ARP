@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente, Sucursales, Permisos } from '../../models/models.index';
-import { ClientesService, SucursalesService, AuthService } from '../../services/service.index';
+import { ClientesService, SucursalesService, AuthService, PermisosService } from '../../services/service.index';
 
 @Component({
   selector: 'app-clientes',
@@ -18,9 +18,9 @@ export class ClientesComponent implements OnInit {
 
   constructor(public clieService: ClientesService,
               public authService: AuthService,
+              public permService: PermisosService,
               public sucuService: SucursalesService) {
-                this.permiso = this.authService.usuario.permisos.find( p => p.modulo.nombre === 'ClientesSucursal'
-                && p.grupo.Id === this.authService.usuario.RolId);
+                this.cargarPermiso( 'ClientesSucursal' );
               }
 
   ngOnInit() {
@@ -28,6 +28,13 @@ export class ClientesComponent implements OnInit {
     this.desde = 0;
     this.totalRegistros = 0;
     this.cargarClientes();
+  }
+
+  cargarPermiso( modulo: string ) {
+    return this.permService.cargarPermiso( modulo )
+    .subscribe((data: Permisos) => {
+      this.permiso = data;
+    });
   }
 
   cargarSucursales() {

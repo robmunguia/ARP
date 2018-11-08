@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService, RolesService, AuthService } from '../../services/service.index';
+import { UsuariosService, RolesService, AuthService, PermisosService } from '../../services/service.index';
 import { Estatus, Usuario, Roles, Permisos } from '../../models/models.index';
 import { estados } from '../../config/config';
 import swal from 'sweetalert2';
@@ -20,17 +20,24 @@ export class UsuariosComponent implements OnInit {
   estados: Estatus[] = [];
 
   constructor(public _usuarioService: UsuariosService,
+              public permService: PermisosService,
               public _authService: AuthService,
               public _rolesService: RolesService ) {
-    this.desde = 0;
-    this.estados = estados;
-    this.permiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Usuarios'
-                && p.grupo.Id === this._authService.usuario.RolId);
+              this.desde = 0;
+              this.estados = estados;
+              this.cargarPermiso( 'Usuarios' );
   }
 
   ngOnInit() {
     this.cargarRoles();
     this.cargarUsuarios();
+  }
+
+  cargarPermiso( modulo: string ) {
+    return this.permService.cargarPermiso( modulo )
+    .subscribe((data: Permisos) => {
+      this.permiso = data;
+    });
   }
 
   cargarRoles() {

@@ -1,6 +1,14 @@
 <div *ngIf="ReqClientes.length > 0" class="row">
     <div class="col-md-12">
         <div class="card">
+            <!-- <div class="ml-auto">
+                <select class="custom-select">
+                    <option selected="">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                </select>
+            </div> -->
             <div class="card-body">
                 <div class="col-2 pull-left">
                     <a *ngIf="reqPermiso?.agregar" class="btn waves-effect waves-light btn-info" [routerLink]="['/requis/add']"> <i class="mdi mdi-plus"></i> </a>

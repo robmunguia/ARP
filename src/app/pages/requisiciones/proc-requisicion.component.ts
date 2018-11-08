@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Proceso, Permisos } from '../../models/models.index';
-import { AuthService, RequisicionesService } from '../../services/service.index';
+import { AuthService, RequisicionesService, PermisosService } from '../../services/service.index';
 import swal from 'sweetalert2';
 
 @Component({
@@ -18,14 +18,21 @@ export class ProcRequisicionComponent implements OnInit {
   listado: Proceso[] = [];
 
   constructor(public authService: AuthService,
+              public permService: PermisosService,
               public requisService: RequisicionesService ) {
-                this.permiso = this.authService.usuario.permisos.find( p => p.modulo.nombre === 'Abrir/CancelarRequi'
-                && p.grupo.Id === this.authService.usuario.RolId);
+                this.cargarPermiso('Abrir/CancelarRequi');
               }
 
   ngOnInit() {
     this.motivo = '';
     this.detalle = false;
+  }
+
+  cargarPermiso( modulo: string ) {
+    return this.permService.cargarPermiso( modulo )
+    .subscribe((data: Permisos) => {
+      this.permiso = data;
+    });
   }
 
   procesar() {

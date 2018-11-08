@@ -1,5 +1,4 @@
 import { Sucursales } from './sucursal.model';
-import { Permisos } from './permisos.model';
 
 export class Usuario {
     constructor (
@@ -19,7 +18,6 @@ export class Usuario {
         public RolId: number = 0,
         public NoEmpleado: number = 0,
         public EmpresaId: number = 0,
-        public sucursales: Sucursales[] = [],
-        public permisos: Permisos[] = []
+        public sucursales: Sucursales[] = []
     ) { }
 }

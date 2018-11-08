@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/service.index';
+import { AuthService, PermisosService } from '../../services/service.index';
 import { Usuario } from '../../models/usuario.model';
+import { Permisos } from 'src/app/models/models.index';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,12 +11,26 @@ import { Usuario } from '../../models/usuario.model';
 export class SidebarComponent implements OnInit {
 
   usuario: Usuario = new Usuario();
+  permisos: Permisos[] = [];
 
-  constructor(public _authService: AuthService ) {
-      this.usuario = this._authService.usuario;
+  showProceso = true;
+  showReportes = true;
+
+  constructor(public _authService: AuthService,
+              public permServicio: PermisosService) {
+              this.cargarPermisos();
   }
 
   ngOnInit() {
+  }
+
+  cargarPermisos() {
+    this.permServicio.cargarPermisoMenu()
+    .subscribe((data: Permisos[]) => {
+      this.permisos = data;
+      this.permiso('Reportes');
+      this.permiso('Procesos');
+    });
   }
 
   cerrarSesion() {
@@ -23,9 +38,14 @@ export class SidebarComponent implements OnInit {
   }
 
   permiso( modulo: string ): boolean {
-    const permi = this.usuario.permisos.find( p => p.modulo.nombre === modulo
-                                            && p.grupo.Id === this.usuario.RolId
-                                            && p.consultar);
+    const permi = this.permisos.find( p => p.modulo.nombre === modulo
+                                      && p.consultar);
+    if (modulo === 'Proceso') {
+      this.showProceso = permi === undefined ? false : permi.consultar;
+    }
+    if (modulo === 'Reportes') {
+      this.showReportes = permi === undefined ? false : permi.consultar;
+    }
     if (permi === undefined) {
       return false;
     }

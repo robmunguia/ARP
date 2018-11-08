@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EnviosService, AuthService } from '../../services/service.index';
+import { EnviosService, AuthService, PermisosService } from '../../services/service.index';
 import { Requisicion, Envio, Permisos } from '../../models/models.index';
 
 @Component({
@@ -22,10 +22,10 @@ export class EnvioComponent implements OnInit {
   E_I: number = this.envio.indistinto;
 
   constructor(public _envioService: EnviosService,
+              public permService: PermisosService,
               public _authService: AuthService,
               public activatedRoute: ActivatedRoute) {
-                this.permiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Envios'
-                  && p.grupo.Id === this._authService.usuario.RolId);
+                this.cargarPermiso( 'Envios' );
 
                 this.activatedRoute.params.subscribe( params => {
                   this.cargarInfo( params['id'] );
@@ -33,6 +33,13 @@ export class EnvioComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  cargarPermiso( modulo: string ) {
+    return this.permService.cargarPermiso( modulo )
+    .subscribe((data: Permisos) => {
+      this.permiso = data;
+    });
   }
 
   cargarInfo( id: number = 0) {

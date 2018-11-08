@@ -20,6 +20,16 @@ export class PermisosService {
     return this.http.get( url );
   }
 
+  cargarPermiso( modulo: string ) {
+    const url = URL_SERVICIOS + '/permiso?modulo=' + modulo;
+    return this.http.get( url );
+  }
+
+  cargarPermisoMenu() {
+    const url = URL_SERVICIOS + '/permiso/menu';
+    return this.http.get( url );
+  }
+
   guardar( permiso: Permisos ) {
     const url = URL_SERVICIOS + '/Permisos';
 
@@ -36,7 +46,7 @@ export class PermisosService {
 
     return this.http.put( url, permiso )
     .map((data: Permisos) => {
-      swal('Modificaco Correctamente', permiso.modulo.nombre, 'success');
+      swal('Modificado Correctamente', permiso.modulo.nombre, 'success');
       return data;
     });
   }

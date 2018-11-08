@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmacionService, AuthService, EnviosService } from '../../services/service.index';
+import { ConfirmacionService, AuthService, EnviosService, PermisosService } from '../../services/service.index';
 import { Requisicion, Envio, Permisos } from '../../models/models.index';
 import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
@@ -22,10 +22,10 @@ export class ConfirmacionesComponent implements OnInit {
 
   constructor(public _confiService: ConfirmacionService,
               public _authService: AuthService,
+              public permService: PermisosService,
               public _envioService: EnviosService,
               public activatedRoute: ActivatedRoute) {
-                this.permiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Confirmaciones'
-                  && p.grupo.Id === this._authService.usuario.RolId);
+                this.cargarPermiso( 'Confirmaciones' );
 
                 this.activatedRoute.params.subscribe( params => {
                   this.cargarRequi( params['id'] );
@@ -33,6 +33,13 @@ export class ConfirmacionesComponent implements OnInit {
               }
 
   ngOnInit() {
+  }
+
+  cargarPermiso( modulo: string ) {
+    return this.permService.cargarPermiso( modulo )
+    .subscribe((data: Permisos) => {
+      this.permiso = data;
+    });
   }
 
   calculoConfirmados() {

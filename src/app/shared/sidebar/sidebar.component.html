@@ -13,16 +13,16 @@
                 <li routerLinkActive="active" *ngIf="permiso( 'Requisiciones' )">
                     <a class="waves-effect waves-dark" [routerLink]="['/requis']"><i class="mdi mdi-buffer"></i><span class="hide-menu">Requisiciones</span></a>
                 </li>
-                <li routerLinkActive="active" *ngIf="permiso( 'Reportes' )">
+                <li routerLinkActive="active" *ngIf="showReportes">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i class="mdi mdi-chart-arc"></i><span class="hide-menu">Reportes</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a> Generales </a></li>
                         <li><a> Contratación  </a></li>
                         <li><a> Contratación Mes </a></li>
-                        <li><a> Requ por Clientes </a></li>
+                        <li><a> Requi por Clientes </a></li>
                     </ul>
                 </li>
-                <li routerLinkActive="active" *ngIf="permiso( 'Proceso' )">
+                <li routerLinkActive="active" *ngIf="showProceso">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Procesos</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li *ngIf="permiso( 'Abrir/CancelarRequi' )"><a [routerLink]="['/proceso']">Pausar/Activar Requi </a></li>
@@ -53,7 +53,7 @@
     </div>
     <!-- End Sidebar scroll-->
     <!-- Bottom points-->
-    <div *ngIf="usuario.RolId === 1" class="sidebar-footer">
+    <div *ngIf="permiso( 'admin' )" class="sidebar-footer">
         <!-- item-->
         <a href="#" class="link" [routerLink]="['/config']" title="Seguridad"><i class="ti-settings"></i></a>
         <a href="#" class="link" [routerLink]="['/users']" title="Usuarios"><i class="fa fa-users"></i></a>

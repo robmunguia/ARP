@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TipoNominaService, AuthService } from '../../services/service.index';
+import { TipoNominaService, AuthService, PermisosService } from '../../services/service.index';
 import { TipoNomina, Permisos } from '../../models/models.index';
 
 @Component({
@@ -14,13 +14,20 @@ export class TipoNominaComponent implements OnInit {
   cargando: boolean;
 
   constructor(public _tnominaService: TipoNominaService,
+              public permService: PermisosService,
               public _authService: AuthService) {
-                this.permiso = this._authService.usuario.permisos.find( p => p.modulo.nombre === 'Nomina'
-                && p.grupo.Id === this._authService.usuario.RolId);
+                this.cargarPermiso( 'Nomina' );
               }
 
   ngOnInit() {
     this.cargarTNominas();
+  }
+
+  cargarPermiso( modulo: string ) {
+    return this.permService.cargarPermiso( modulo )
+    .subscribe((data: Permisos) => {
+      this.permiso = data;
+    });
   }
 
   cargarTNominas() {

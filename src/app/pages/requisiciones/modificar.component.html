@@ -58,6 +58,11 @@
             </div>
 
             <div class="form-group col-md-12">
+                <label for="comentario">Comentarios</label>
+                <textarea [(ngModel)]="requi.Comentario" name="comentario" class="form-control" maxlength="150" rows="4"></textarea>
+            </div>
+
+            <div class="form-group col-md-12">
                 <button *ngIf="permiso.agregar" type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
                 <a href="#" [routerLink]="['/requis']" class="btn btn-inverse waves-effect waves-light m-r-10">Cancelar</a>
             </div>

@@ -4,7 +4,6 @@ import swal from 'sweetalert2';
 import { Cliente, Fecha, Puesto, Requisicion, TipoNomina, Turno } from '../../models/models.index';
 import { AuthService, ClientesService, TipoNominaService, RequisicionesService } from '../../services/service.index';
 import { Router } from '@angular/router';
-import { Permisos } from '../../models/permisos.model';
 
 @Component({
   selector: 'app-requisicion',
@@ -95,10 +94,6 @@ export class RequisicionComponent implements OnInit {
     }
     if ( this.requi.salario === 0  ) {
       swal('Advertencia', 'El salario debe ser mayor a 0', 'warning' );
-      return false;
-    }
-    if ( this.requi.vales === 0  ) {
-      swal('Advertencia', 'Los vales debe der mayor a 0', 'warning' );
       return false;
     }
     return true;
