@@ -1,28 +1,37 @@
 <div *ngIf="ReqClientes.length > 0" class="row">
     <div class="col-md-12">
         <div class="card">
-            <!-- <div class="ml-auto">
-                <select class="custom-select">
-                    <option selected="">January</option>
-                    <option value="1">February</option>
-                    <option value="2">March</option>
-                    <option value="3">April</option>
-                </select>
-            </div> -->
             <div class="card-body">
-                <div class="col-2 pull-left">
+                <div class="col-1 pull-left">
                     <a *ngIf="reqPermiso?.agregar" class="btn waves-effect waves-light btn-info" [routerLink]="['/requis/add']"> <i class="mdi mdi-plus"></i> </a>
                 </div>
-                <div class="col-10 text-right pull-right">
+                <div class="col-5 pull-left">
+                    <ng-select [(ngModel)]="usuario.sucursales" (change)="onChange($event)" [items]="sucursales" [multiple]="true" [closeOnSelect]="false" [searchable]="false" bindLabel="Nombre" placeholder="Mi Sucursal">
+                    </ng-select>
+                </div>
+                <div class="col-6 text-right pull-right">
                     <span *ngFor="let tnom of nominas" class="badge tipo-nomina" [style.backgroundColor]="tnom.Color" [style.color]="tnom.Nombre === 'Reclutamiento' ? '#000': '#fff'"> {{ tnom.Nombre }} </span>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 
-<div *ngIf="ReqClientes.length === 0" class="row">
+<div class="row animated fadeIn" *ngIf="cargando">
+
+    <div class="col-sm-12">
+
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="ReqClientes.length === 0 && !cargando " class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
@@ -40,7 +49,7 @@
     </div>
 </div>
 
-<div class="row">
+<div *ngIf="!cargando" class="row">
     <div class="col-lg-12">
         <div *ngFor="let clie of ReqClientes" class="card">
             <div class="card-body">

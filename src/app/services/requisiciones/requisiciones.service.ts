@@ -23,10 +23,13 @@ export class RequisicionesService {
     return this.http.get( url );
   }
 
-  cargarRequUsuarioAbiertas() {
+  cargarRequUsuarioAbiertas( usuario: Usuario ) {
     const url = URL_SERVICIOS + '/requis/abiertas';
 
-    return this.http.get( url );
+    return this.http.post( url, usuario.sucursales )
+      .map((data: any) => {
+        return data;
+      });
   }
 
   guardarRequisicion( requisicon: Requisicion ) {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, TableroService } from 'src/app/services/service.index';
-import { Requisicion, Fecha, Grafica, Tablero, EnvConfirmados } from 'src/app/models/models.index';
+import { AuthService, TableroService, SucursalesService } from 'src/app/services/service.index';
+import { Requisicion, Fecha, Grafica, Tablero, EnvConfirmados, Sucursales, Usuario } from 'src/app/models/models.index';
 import { Envio } from '../../models/envios.model';
 
 @Component({
@@ -15,6 +15,9 @@ export class DashboardComponent implements OnInit {
   envConfirmado: EnvConfirmados[] = [];
   contador: Tablero = new Tablero();
   verGrafica = false;
+  usuario: Usuario = new Usuario();
+  sucursales: Sucursales[] = [];
+  cargando = false;
 
   // Doughnut
   public doughnutChartLabels: string[] = [];
@@ -22,15 +25,38 @@ export class DashboardComponent implements OnInit {
   public doughnutChartType = 'doughnut';
 
   constructor(public authService: AuthService,
-              public tableroService: TableroService ) { }
+              public sucuService: SucursalesService,
+              public tableroService: TableroService ) {
+                this.usuario = this.authService.usuario;
+                this.cargarSucursales();
+              }
 
   ngOnInit() {
     this.cargarTablero();
     this.cargarGrafica();
   }
 
+  limpiarGrafica() {
+    this.doughnutChartLabels = [];
+    this.doughnutChartData = [];
+    this.grafica = [];
+  }
+
+  onChange( evento ) {
+    this.usuario.sucursales = evento;
+    this.cargarTablero();
+    this.cargarGrafica();
+  }
+
+  cargarSucursales() {
+    this.sucuService.obtenerSucursales()
+    .subscribe((data: Sucursales[]) => {
+      this.sucursales = data;
+    });
+  }
+
   cargarTablero() {
-    this.tableroService.cargarTablero()
+    this.tableroService.cargarTablero( this.usuario.sucursales )
     .subscribe((data: any) => {
       this.requis = data.vencidas;
       this.contador.activos = data.activos;
@@ -41,7 +67,9 @@ export class DashboardComponent implements OnInit {
   }
 
   cargarGrafica() {
-    this.tableroService.cargarCumplimientoCliente()
+    this.limpiarGrafica();
+    this.verGrafica = false;
+    this.tableroService.cargarCumplimientoCliente( this.usuario.sucursales )
     .subscribe((data: any) => {
       this.grafica = data;
       for (const gr of this.grafica) {

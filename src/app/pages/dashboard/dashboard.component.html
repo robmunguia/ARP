@@ -1,4 +1,27 @@
-<div class="row">
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body overflow-box">
+                <ng-select appendTo="body" (change)="onChange($event)" [(ngModel)]="usuario.sucursales" [items]="sucursales" [multiple]="true" [closeOnSelect]="false" [searchable]="true" bindLabel="Nombre" placeholder="Mi Sucursal">
+                </ng-select>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="!cargando">
     <!-- Column -->
     <div class="col-lg-4 col-md-6">
         <div class="card">
@@ -46,7 +69,7 @@
     <!-- Column -->
 </div>
 
-<div class="row">
+<div class="row" *ngIf="!cargando">
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
@@ -80,7 +103,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="!cargando">
     <div class="col-lg-7">
         <div class="card">
             <div class="card-body">

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RequisicionesService, TipoNominaService, AuthService, PermisosService } from '../../services/service.index';
+import { RequisicionesService, TipoNominaService, AuthService, PermisosService, SucursalesService } from '../../services/service.index';
 import { Requisiciones, TipoNomina, Requisicion, Permisos } from '../../models/models.index';
 import swal from 'sweetalert2';
+import { Sucursales } from '../../models/sucursal.model';
+import { Usuario } from 'src/app/models/models.index';
 
 @Component({
   selector: 'app-requisiciones',
@@ -17,14 +19,20 @@ export class RequisicionesComponent implements OnInit {
 
   ReqClientes: Requisiciones[] = [];
   nominas: TipoNomina[] = [];
+  sucursales: Sucursales[] = [];
+  usuario: Usuario = new Usuario();
+  cargando = false;
 
   constructor(public _requisService: RequisicionesService,
               public permService: PermisosService,
+              public sucuService: SucursalesService,
               public _authService: AuthService,
               public _tnominaService: TipoNominaService) {
+                this.usuario = this._authService.usuario;
                 this.cargarPermiso( 'Requisiciones' );
                 this.cargarPermiso( 'Envios' );
                 this.cargarPermiso( 'Confirmaciones' );
+                this.cargarSucursales();
               }
 
   ngOnInit() {
@@ -45,8 +53,21 @@ export class RequisicionesComponent implements OnInit {
     });
   }
 
+  cargarSucursales() {
+    this.sucuService.obtenerSucursales()
+    .subscribe((data: Sucursales[]) => {
+      this.sucursales = data;
+    });
+  }
+
+  onChange( evento ) {
+    this.usuario.sucursales = evento;
+    this.cargarRequis();
+  }
+
   cargarRequis() {
-    this._requisService.cargarRequUsuarioAbiertas()
+    this.cargando = true;
+    this._requisService.cargarRequUsuarioAbiertas( this.usuario )
     .subscribe((data: any) => {
       this.ReqClientes = data;
       for (const clie of this.ReqClientes) {
@@ -65,6 +86,7 @@ export class RequisicionesComponent implements OnInit {
         }
         clie.Color = color;
       }
+      this.cargando = false;
     });
   }
 
