@@ -1,0 +1,109 @@
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!cargando && showParametros" class="row">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="card-title">Filtros <button type="button" *ngIf="showResultado" (click)="showParametros = !showParametros;" class="col-1 btn waves-effect waves-light btn-xs btn-info">Ocultar Filtros</button></h3>
+            <div class="card-body">
+                <!-- generar  -->
+                <form #f="ngForm" ngNativeValidate (ngSubmit)="generar()" class="row">
+                    <div class="form-group col-md-6">
+                        <label for="dpInicio">Fecha Inicial (yyyy-m-d)</label>
+                        <div class="input-group">
+                            <input [(ngModel)]="parametros.FecInicio" class="form-control" placeholder="yyyy-mm-dd" showWeekNumbers="true" name="dpInicio" ngbDatepicker #dInicio="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" (click)="dInicio.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="dpFinal">Fecha Final (yyyy-m-d)</label>
+                        <div class="input-group">
+                            <input [(ngModel)]="parametros.FecFinal" class="form-control" placeholder="yyyy-mm-dd" showWeekNumbers="true" name="dpFinal" ngbDatepicker #dFinal="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" (click)="dFinal.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="salario">Estatus</label>
+                        <select [(ngModel)]="parametros.Estado" name="Restado" class="form-control">
+                            <option *ngFor="let est of estatus" [ngValue]="est.Id">{{ est.Nombre }}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="sucursal">Sucursales</label>
+                        <ng-select [(ngModel)]="parametros.sucursales" name="sucursal" [items]="sucursales" [multiple]="true" [closeOnSelect]="true" [searchable]="false" bindLabel="Nombre" placeholder="Todas">
+                        </ng-select>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Generar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Resultados del Reporte -->
+<div *ngIf="showResultado" class="row">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="card-title">Requisiciones <button type="button" *ngIf="!showParametros" (click)="showParametros = !showParametros;" class=" col-1 btn waves-effect waves-light btn-xs btn-info">Ver Filtros</button></h3>
+            <div class="card-body">
+
+                <div *ngIf="parametros.resultados.length == 0" class="alert alert-warning text-center">
+                    <strong>No se encontraron resultados</strong>
+                </div>
+
+                <div *ngIf="parametros.resultados.length > 0" class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Cliente</th>
+                                <th>Enviado</th>
+                                <th>Confirmado</th>
+                                <th>Requerido</th>
+                                <th>Fecha Ingreso</th>
+                                <th>% Cumplimiento</th>
+                                <th>Días Abierta</th>
+                                <th>Días Tarde</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let req of parametros.resultados">
+                                <td><a href="javascript:void(0)" [routerLink]="['/detalle', req.Folio ]"> {{ req.Folio }} </a></td>
+                                <td> {{ req.Cliente }} </td>
+                                <td> {{ req.Enviado }} </td>
+                                <td> {{ req.Confirmado }} </td>
+                                <td> {{ req.Total }} </td>
+                                <td><span class="text-muted"><i class="fa fa-clock-o"></i> {{ req.FecIngreso | date }} </span> </td>
+                                <td>
+                                    <div class="label label-table label-success"> {{ ((req.Confirmado * 100) / req.Total) | number: '1.1-2' }} %</div>
+                                </td>
+                                <td> {{ req.DiasTarde }} </td>
+                                <td> {{ req.DiasAbierta }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

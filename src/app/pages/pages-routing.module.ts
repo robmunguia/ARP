@@ -23,6 +23,8 @@ import { PermisoComponent } from './settings/permiso.component';
 import { ParametrosComponent } from './settings/parametros.component';
 import { ModulosComponent } from './settings/modulos.component';
 import { PerfilComponent } from './user/perfil.component';
+import { GeneralesComponent } from './reportes/generales/generales.component';
+import { DetallesComponent } from './requisiciones/detalles.component';
 
 
 const Rutas: Routes = [
@@ -34,7 +36,9 @@ const Rutas: Routes = [
             { path: 'home', component: DashboardComponent, data: { modulo: ['Tablero', 'Consultar'] } },
             { path: 'requis', component: RequisicionesComponent, data: { modulo: ['Requisiciones', 'Consultar'] } },
             { path: 'requis/add', component: RequisicionComponent, data: { modulo: ['Requisiciones', 'Agregar'] } },
+            { path: 'detalle/:id', component: DetallesComponent, data: { modulo: ['Requisiciones', 'Detalles'] } },
             { path: 'usuarios', component: ListadoComponent, data: { modulo: ['UsuariosSucursal', 'Consultar'] } },
+            { path: 'reporte/general', component: GeneralesComponent, data: { modulo: ['reporte/general', 'Consultar'] } },
             { path: 'users/:id', component: NuevoUsuarioComponent, data: { modulo: ['Usuarios', 'Modificar'] } },
             { path: 'users', component: UsuariosComponent, data: { modulo: ['Usuarios', 'Consultar'] } },
             { path: 'perfil', component: PerfilComponent, data: { modulo: ['Usuarios', 'Consultar'] } },

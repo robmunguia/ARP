@@ -37,6 +37,8 @@ import { GruposComponent } from './settings/grupos.component';
 import { ParametrosComponent } from './settings/parametros.component';
 import { ModulosComponent } from './settings/modulos.component';
 import { PerfilComponent } from './user/perfil.component';
+import { GeneralesComponent } from './reportes/generales/generales.component';
+import { DetallesComponent } from './requisiciones/detalles.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { PerfilComponent } from './user/perfil.component';
   GruposComponent,
   ParametrosComponent,
   ModulosComponent,
-  PerfilComponent
+  PerfilComponent,
+  GeneralesComponent,
+  DetallesComponent
 ],
   imports: [
     BrowserModule,

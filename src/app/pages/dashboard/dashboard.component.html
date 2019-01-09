@@ -14,7 +14,7 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body overflow-box">
-                <ng-select appendTo="body" (change)="onChange($event)" [(ngModel)]="usuario.sucursales" [items]="sucursales" [multiple]="true" [closeOnSelect]="false" [searchable]="true" bindLabel="Nombre" placeholder="Mi Sucursal">
+                <ng-select appendTo="body" (change)="onChange($event)" [(ngModel)]="usuario.sucursales" [items]="sucursales" [multiple]="true" [closeOnSelect]="true" [searchable]="false" bindLabel="Nombre" placeholder="Mi Sucursal">
                 </ng-select>
             </div>
         </div>
@@ -22,8 +22,9 @@
 </div>
 
 <div class="row" *ngIf="!cargando">
+
     <!-- Column -->
-    <div class="col-lg-4 col-md-6">
+    <div class="col-lg-6 col-md-6">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex flex-row">
@@ -37,6 +38,51 @@
         </div>
     </div>
     <!-- Column -->
+    <div class="col-lg-6 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-row">
+                    <div class="round round-lg align-self-center round-danger"><i class="ti ti-arrow-circle-down"></i></div>
+                    <div class="m-l-10 align-self-center">
+                        <h3 class="m-b-0 font-light"> {{ contador.bajas }} </h3>
+                        <h5 class="text-muted m-b-0">Bajas</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row" *ngIf="!cargando">
+    <!-- Column -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-row">
+                    <div class="round round-lg align-self-center round-info"><i class="fa fa-folder-open"></i></div>
+                    <div class="m-l-10 align-self-center">
+                        <h3 class="m-b-0 font-lgiht"> {{ contador.requisiciones }} </h3>
+                        <h5 class="text-muted m-b-0">Requisiciones</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex flex-row">
+                    <div class="round round-lg align-self-center round-info"><i class="fa fa-send"></i></div>
+                    <div class="m-l-10 align-self-center">
+                        <h3 class="m-b-0 font-lgiht"> {{ contador.envios }} </h3>
+                        <h5 class="text-muted m-b-0">Enviados</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Column -->
     <div class="col-lg-4 col-md-6">
         <div class="card">
@@ -51,22 +97,6 @@
             </div>
         </div>
     </div>
-    <!-- Column -->
-    <!-- Column -->
-    <div class="col-lg-4 col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex flex-row">
-                    <div class="round round-lg align-self-center round-danger"><i class="ti ti-arrow-circle-down"></i></div>
-                    <div class="m-l-10 align-self-center">
-                        <h3 class="m-b-0 font-lgiht"> {{ contador.bajas }} </h3>
-                        <h5 class="text-muted m-b-0">Bajas</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Column -->
 </div>
 
 <div class="row" *ngIf="!cargando">
@@ -74,7 +104,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex no-block">
-                    <h4 class="card-title">Enviado Vs Confirmado</h4>
+                    <h4 class="card-title">Lista de Envíos</h4>
                 </div>
                 <div class="table-responsive m-t-20">
                     <table class="table stylish-table">
@@ -83,8 +113,6 @@
                                 <th>Cliente</th>
                                 <th>Enviados</th>
                                 <th>Confirmados</th>
-                                <th>Total</th>
-                                <th>Fecha</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -92,10 +120,15 @@
                                 <td>{{ envi.cliente }}</td>
                                 <td>{{ envi.enviados }}</td>
                                 <td><span class="label label-info"> {{ envi.confirmados }} </span></td>
-                                <td><span class="label label-success">{{ envi.total }}</span></td>
-                                <td> {{ envi.fecha | date: 'yyyy-MM-dd' }} </td>
                             </tr>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="text-right">Total:</td>
+                                <td> <strong> {{ TotalEnvia }} </strong> </td>
+                                <td> <span class="label label-info"> {{ TotalConfi }} </span> </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

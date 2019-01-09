@@ -19,6 +19,9 @@ export class DashboardComponent implements OnInit {
   sucursales: Sucursales[] = [];
   cargando = false;
 
+  TotalEnvia = 0;
+  TotalConfi = 0;
+
   // Doughnut
   public doughnutChartLabels: string[] = [];
   public doughnutChartData: number[] = [];
@@ -62,7 +65,10 @@ export class DashboardComponent implements OnInit {
       this.contador.activos = data.activos;
       this.contador.bajas = data.bajas;
       this.contador.confirmados = data.confirmados;
+      this.contador.envios = data.envios;
       this.envConfirmado = data.enviados;
+      this.contador.requisiciones = data.requisiciones;
+      this.generaTotales();
     });
   }
 
@@ -88,6 +94,15 @@ export class DashboardComponent implements OnInit {
     }
 
     return total;
+  }
+
+  generaTotales() {
+    this.TotalConfi = 0;
+    this.TotalEnvia = 0;
+    for (const env of this.envConfirmado) {
+      this.TotalConfi += env.confirmados;
+      this.TotalEnvia += env.enviados;
+    }
   }
 
   diasVencidos( d: Fecha ): number {

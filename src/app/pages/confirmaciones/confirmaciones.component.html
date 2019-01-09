@@ -62,6 +62,7 @@
                                 <span *ngIf="permiso.agregar" class="action-icons">
                                     <a href="javascript:void(0)" *ngIf="env.estatus !== 'Confirmado'" (click)="confirmar( env )" class="btn btn-info btn-sm text-white" title="Confirmar"><i class="icon icon-check"></i></a>
                                 </span>
+                                <span *ngIf="env.estatus === 'Confirmado'"> {{ env.confUser.Nombre }} </span>
                             </td>
                         </tr>
                     </tbody>

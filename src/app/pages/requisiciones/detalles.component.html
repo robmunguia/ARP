@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-12">
+        <div class="ribbon-wrapper card">
+            <div class="ribbon ribbon-info">{{ requi.DesEstatus }}</div>
+            <div class="card-body">
+                <h3 class="card-title text-center"># {{ requi.Id }} <span>{{ requi.cliente.Descripcion }}</span> </h3>
+                <h4 class="card-title text-center"> {{ requi.puesto.Nombre }} <span>{{ requi.turno.Nombre }}</span> </h4>
+                <h4 class="card-title text-center"> {{ requi.fecha | fecha }} <span class="card-subtitle">H</span> {{ requi.Hombres }} <span class="card-subtitle">M</span> {{ requi.Mujeres }} <span class="card-subtitle">I</span> {{ requi.Indistinto }} </h4>
+                <h4 class="card-title text-center"> {{ requi.salario | currency }} <span>{{ requi.vales | currency }}</span> </h4>
+                <span> {{ requi.Comentario }} </span>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Envios -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="card-title">Envíos</h3>
+            <div class="card-body">
+
+                <div *ngIf="requi.envios.length === 0" class="alert alert-warning" role="alert">
+                    No se ha enviado personal a esta requisición.
+                </div>
+
+                <table *ngIf="requi.envios.length > 0" class="table table-sm color-bordered-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha</th>
+                            <th> H </th>
+                            <th> M </th>
+                            <th> I </th>
+                            <th>Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let env of requi.envios">
+                            <td>{{ env.id }} </td>
+                            <td>{{ env.fecha | fecha }}</td>
+                            <td>{{ env.hombre }}</td>
+                            <td>{{ env.mujer }}</td>
+                            <td>{{ env.indistinto }}</td>
+                            <td>{{ env.usuario.Nombre }}</td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <td class="text-right" colspan="2">Totales:</td>
+                            <td><strong>{{ Totales.H }}</strong></td>
+                            <td><strong>{{ Totales.M }}</strong></td>
+                            <td><strong>{{ Totales.I }}</strong></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmaciones -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="card-title">Confirmaciones</h3>
+            <div class="card-body">
+
+                <div *ngIf="confirmaciones.length === 0" class="alert alert-warning" role="alert">
+                    No se ha confirmado personal a esta requisición. :'(
+                </div>
+
+                <table *ngIf="confirmaciones.length > 0" class="table table-sm color-bordered-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha</th>
+                            <th> H </th>
+                            <th> M </th>
+                            <th> I </th>
+                            <th>Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let env of confirmaciones">
+                            <td>{{ env.id }} </td>
+                            <td>{{ env.fecha | fecha }}</td>
+                            <td>{{ env.confhombre }}</td>
+                            <td>{{ env.confmujer }}</td>
+                            <td>{{ env.confindistinto }}</td>
+                            <td>{{ env.confUser.Nombre }}</td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <td class="text-right" colspan="2">Totales:</td>
+                            <td><strong>{{ Totales.CH }}</strong></td>
+                            <td><strong>{{ Totales.CM }}</strong></td>
+                            <td><strong>{{ Totales.CI }}</strong></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

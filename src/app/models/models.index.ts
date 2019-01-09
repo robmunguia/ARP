@@ -18,3 +18,5 @@ export { Grafica } from './grafica.model';
 export { Tablero } from './contador.model';
 export { Perfil } from './perfil.model';
 export { EnvConfirmados } from './envconf.model';
+export { Reportes } from './reportes.model';
+export { ReporteGeneral } from './ReporteGeneral.model';

@@ -11,6 +11,8 @@ export class PagesComponent implements OnInit {
 
   constructor() { }
 
+  year = new Date().getFullYear();
+
   ngOnInit() {
     init_plugins();
   }
