@@ -18,8 +18,11 @@ export class DashboardComponent implements OnInit {
   usuario: Usuario = new Usuario();
   sucursales: Sucursales[] = [];
   cargando = false;
+  cargandoEnvios = false;
+  param = 'WEEK';
 
   TotalEnvia = 0;
+  TotalProce = 0;
   TotalConfi = 0;
 
   // Doughnut
@@ -51,6 +54,18 @@ export class DashboardComponent implements OnInit {
     this.cargarGrafica();
   }
 
+  loadEnvio() {
+    this.cargarTablero();
+  }
+
+  ContProceso(): number {
+    this.TotalProce = 0;
+    for (const env of this.envConfirmado) {
+      this.TotalProce += Number(env.proceso.toString());
+    }
+    return this.TotalProce;
+  }
+
   cargarSucursales() {
     this.sucuService.obtenerSucursales()
     .subscribe((data: Sucursales[]) => {
@@ -59,7 +74,9 @@ export class DashboardComponent implements OnInit {
   }
 
   cargarTablero() {
-    this.tableroService.cargarTablero( this.usuario.sucursales )
+    this.cargandoEnvios = true;
+    this.TotalProce = 0;
+    this.tableroService.cargarTablero( this.usuario.sucursales, this.param )
     .subscribe((data: any) => {
       this.requis = data.vencidas;
       this.contador.activos = data.activos;
@@ -68,6 +85,7 @@ export class DashboardComponent implements OnInit {
       this.contador.envios = data.envios;
       this.envConfirmado = data.enviados;
       this.contador.requisiciones = data.requisiciones;
+      this.cargandoEnvios = false;
       this.generaTotales();
     });
   }
