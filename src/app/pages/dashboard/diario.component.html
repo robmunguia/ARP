@@ -1,0 +1,43 @@
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <!-- <button class="float-right btn btn-sm btn-rounded btn-success" data-toggle="modal" data-target="#myModal">Agregar Proceso</button> -->
+            <h4 class="card-title">Proceso Díario</h4>
+            <h6 class="card-subtitle">Fecha: {{ today | fecha }}</h6>
+
+            <form #f="ngForm" ngNativeValidate (ngSubmit)="addProceso()" class="form-inline">
+                <div class="form-group mb-2">
+                    <label for="cliente" class="sr-only">Cliente</label>
+                    <input [(ngModel)]="proceso.cliente" name="cliente" id="cliente" type="text" class="form-control form-control-sm" required="required" placeholder="Código Cliente" maxlength="4">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="proceso" class="sr-only">Proceso</label>
+                    <input [(ngModel)]="proceso.proceso" name="proceso" id="proceso" type="number" class="form-control form-control-sm" required="required" placeholder="Cantidad Proceso">
+                </div>
+                <button type="submit" class="btn btn-success btn-sm mb-2">Agregar Proceso</button>
+            </form>
+
+            <table class="table stylish-table">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Proceso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let envi of lstProcesos">
+                        <td>{{ envi.cliente }}</td>
+                        <td> <input [(ngModel)]="envi.proceso" (change)="contador()" name="proceso" class="form-control form-control-sm" /> </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td class="text-right">Total:</td>
+                        <td> <strong> {{ TotalProceso }} </strong> </td>
+                    </tr>
+                </tfoot>
+            </table>
+
+        </div>
+    </div>
+</div>

@@ -14,6 +14,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // Charts
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
+// Pipes
+import { PipesModule } from './pipes/pipes.module';
+
 // Modulos
 import { SharedModule } from './shared/shared.module';
 import { ServiceModule } from './services/service.module';
@@ -34,6 +37,7 @@ import { RequisicionComponent } from './pages/requisiciones/requisicion.componen
 import { NuevoUsuarioComponent } from './pages/usuarios/nuevo-usuario.component';
 import { ModificarComponent } from './pages/requisiciones/modificar.component';
 import { PermisoComponent } from './pages/settings/permiso.component';
+import { DiarioComponent } from './pages/dashboard/diario.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,8 @@ import { PermisoComponent } from './pages/settings/permiso.component';
     RequisicionComponent,
     NuevoUsuarioComponent,
     ModificarComponent,
-    PermisoComponent
+    PermisoComponent,
+    DiarioComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +57,7 @@ import { PermisoComponent } from './pages/settings/permiso.component';
     SharedModule,
     ServiceModule,
     PagesModule,
+    PipesModule,
     FormsModule,
     NgSelectModule,
     NgbModule,

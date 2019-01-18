@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, TableroService, SucursalesService } from 'src/app/services/service.index';
+import { AuthService, TableroService, SucursalesService, ClientesService } from 'src/app/services/service.index';
 import { Requisicion, Fecha, Grafica, Tablero, EnvConfirmados, Sucursales, Usuario } from 'src/app/models/models.index';
 import { Envio } from '../../models/envios.model';
 
@@ -22,7 +22,6 @@ export class DashboardComponent implements OnInit {
   param = 'WEEK';
 
   TotalEnvia = 0;
-  TotalProce = 0;
   TotalConfi = 0;
 
   // Doughnut
@@ -32,6 +31,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(public authService: AuthService,
               public sucuService: SucursalesService,
+              public clientService: ClientesService,
               public tableroService: TableroService ) {
                 this.usuario = this.authService.usuario;
                 this.cargarSucursales();
@@ -58,14 +58,6 @@ export class DashboardComponent implements OnInit {
     this.cargarTablero();
   }
 
-  ContProceso(): number {
-    this.TotalProce = 0;
-    for (const env of this.envConfirmado) {
-      this.TotalProce += Number(env.proceso.toString());
-    }
-    return this.TotalProce;
-  }
-
   cargarSucursales() {
     this.sucuService.obtenerSucursales()
     .subscribe((data: Sucursales[]) => {
@@ -75,7 +67,6 @@ export class DashboardComponent implements OnInit {
 
   cargarTablero() {
     this.cargandoEnvios = true;
-    this.TotalProce = 0;
     this.tableroService.cargarTablero( this.usuario.sucursales, this.param )
     .subscribe((data: any) => {
       this.requis = data.vencidas;

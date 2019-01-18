@@ -16,6 +16,11 @@ export class ClientesService {
     return this.http.get( url );
   }
 
+  obtenerCliente( codigo: string ) {
+    const url = URL_SERVICIOS + '/cliente?codigo=' + codigo;
+    return this.http.get( url );
+  }
+
   cargarClientes( desde: number ) {
     const url = URL_SERVICIOS + '/clientes/desde?pag=' + desde;
     return this.http.get( url );

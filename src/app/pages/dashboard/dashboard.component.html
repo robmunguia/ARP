@@ -99,53 +99,15 @@
     </div>
 </div>
 
-<div class="row" *ngIf="!cargando">
-    <div class="col-lg-12">
+<div class="row">
+    <app-diario class="col-lg-5"></app-diario>
+
+    <div *ngIf="verGrafica" class="col-lg-7">
         <div class="card">
             <div class="card-body">
-                <div class="d-flex no-block">
-                    <h4 class="card-title">Lista de Envíos</h4>
-                    <div class="ml-auto">
-                        <select [(ngModel)]="param" (change)="loadEnvio()" class="custom-select">
-                            <option value="WEEK" selected="">Semana Actual</option>
-                            <option value="TODAY">Hoy</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="table-responsive m-t-20">
-                    <div *ngIf="cargandoEnvios" class="alert alert-warning text-center">
-                        <strong>Cargando</strong>
-                        <br />
-                        <i class="fa fa-refresh fa-spin fa-2x"></i>
-                        <br />
-                        <span>Espere por favor</span>
-                    </div>
-                    <table *ngIf="!cargandoEnvios" class="table stylish-table">
-                        <thead>
-                            <tr>
-                                <th>Cliente</th>
-                                <th>Proceso</th>
-                                <th>Enviados</th>
-                                <th>Confirmados</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let envi of envConfirmado">
-                                <td>{{ envi.cliente }}</td>
-                                <td> <input [(ngModel)]="envi.proceso" (change)="ContProceso()" name="proceso" class="form-control form-control-sm" /> </td>
-                                <td>{{ envi.enviados }}</td>
-                                <td><span class="label label-info"> {{ envi.confirmados }} </span></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td class="text-right">Total:</td>
-                                <td> <strong> {{ TotalProce }} </strong> </td>
-                                <td> <strong> {{ TotalEnvia }} </strong> </td>
-                                <td> <span class="label label-info"> {{ TotalConfi }} </span> </td>
-                            </tr>
-                        </tfoot>
-                    </table>
+                <h4 class="card-title">% Cumplimiento Cliente</h4>
+                <div style="display: block">
+                    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"></canvas>
                 </div>
             </div>
         </div>
@@ -153,7 +115,7 @@
 </div>
 
 <div class="row" *ngIf="!cargando">
-    <div class="col-lg-7">
+    <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex no-block">
@@ -187,15 +149,51 @@
         </div>
     </div>
 
-    <div *ngIf="verGrafica" class="col-lg-5">
+    <div class="col-lg-6" *ngIf="!cargando">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">% Cumplimiento Cliente</h4>
-                <div style="display: block">
-                    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"></canvas>
+                <div class="d-flex no-block">
+                    <h4 class="card-title">Envíos VS Confirmaciones</h4>
+                    <div class="ml-auto">
+                        <select [(ngModel)]="param" (change)="loadEnvio()" class="custom-select">
+                                    <option value="WEEK" selected="">Semana Actual</option>
+                                    <option value="TODAY">Hoy</option>
+                                </select>
+                    </div>
+                </div>
+                <div class="table-responsive m-t-20">
+                    <div *ngIf="cargandoEnvios" class="alert alert-warning text-center">
+                        <strong>Cargando</strong>
+                        <br />
+                        <i class="fa fa-refresh fa-spin fa-2x"></i>
+                        <br />
+                        <span>Espere por favor</span>
+                    </div>
+                    <table *ngIf="!cargandoEnvios" class="table stylish-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Enviados</th>
+                                <th>Confirmados</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let envi of envConfirmado">
+                                <td>{{ envi.cliente }}</td>
+                                <td>{{ envi.enviados }}</td>
+                                <td><span class="label label-info"> {{ envi.confirmados }} </span></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="text-right">Total:</td>
+                                <td> <strong> {{ TotalEnvia }} </strong> </td>
+                                <td> <span class="label label-info"> {{ TotalConfi }} </span> </td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
