@@ -39,6 +39,8 @@ import { ModulosComponent } from './settings/modulos.component';
 import { PerfilComponent } from './user/perfil.component';
 import { GeneralesComponent } from './reportes/generales/generales.component';
 import { DetallesComponent } from './requisiciones/detalles.component';
+import { TipoMaterialComponent } from './responsivas/tipo-material/tipo-material.component';
+import { MaterialComponent } from './responsivas/material/material.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { DetallesComponent } from './requisiciones/detalles.component';
   ModulosComponent,
   PerfilComponent,
   GeneralesComponent,
-  DetallesComponent
+  DetallesComponent,
+  TipoMaterialComponent,
+  MaterialComponent
 ],
   imports: [
     BrowserModule,

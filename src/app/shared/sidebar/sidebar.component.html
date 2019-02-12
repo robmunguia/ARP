@@ -29,6 +29,15 @@
                         <li *ngIf="permiso( 'ModificarRequi' )"><a [routerLink]="['/modificar']"> Modificar Requi </a></li>
                     </ul>
                 </li>
+                <li routerLinkActive="active" *ngIf="showResponsiva">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false"><i class="mdi mdi-folder"></i><span class="hide-menu">Responsivas</span></a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a [routerLink]="['/entregas']">Entregas</a></li>
+                        <li><a [routerLink]="['/retorno']">Retorno</a></li>
+                        <li><a [routerLink]="['/material']">Materiales</a></li>
+                        <li><a [routerLink]="['/tipos/material']">Tipo de Material</a></li>
+                    </ul>
+                </li>
                 <li routerLinkActive="active" *ngIf="permiso( 'ClientesSucursal' )">
                     <a class="waves-effect waves-dark" [routerLink]="['/clientes']" aria-expanded="false"><i class="fa fa-building"></i><span class="hide-menu">Clientes</span></a>
                 </li>

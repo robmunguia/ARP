@@ -38,6 +38,9 @@ import { NuevoUsuarioComponent } from './pages/usuarios/nuevo-usuario.component'
 import { ModificarComponent } from './pages/requisiciones/modificar.component';
 import { PermisoComponent } from './pages/settings/permiso.component';
 import { DiarioComponent } from './pages/dashboard/diario.component';
+import { MaterialesComponent } from './pages/responsivas/material/materiales.component';
+import { EntregaComponent } from './pages/responsivas/entrega.component';
+import { RetornoComponent } from './pages/responsivas/retorno.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { DiarioComponent } from './pages/dashboard/diario.component';
     NuevoUsuarioComponent,
     ModificarComponent,
     PermisoComponent,
-    DiarioComponent
+    DiarioComponent,
+    MaterialesComponent,
+    EntregaComponent,
+    RetornoComponent
   ],
   imports: [
     BrowserModule,

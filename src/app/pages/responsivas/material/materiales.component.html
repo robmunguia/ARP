@@ -1,0 +1,101 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <!-- (keyup)="buscar( input.value )" -->
+                <input #input type="text" (keyup)="buscar( input.value )" class="form-control" placeholder="Buscar por Nombre ..." />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando">
+
+    <div class="col-sm-12">
+
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="text-right">
+                    <button *ngIf="permiso?.agregar" [routerLink]="['/material/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <i class="fa fa-plus"></i> 
+                        Crear
+                    </button>
+                </div>
+
+                <h3 class="card-title">Materiales ( <small>{{ totalRegistros }}</small> )</h3>
+
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Talla</th>
+                            <!-- <th>Cantidad</th> -->
+                            <th>Activo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let mate of materiales">
+                            <td>
+                                {{ mate.id }}
+                            </td>
+                            <td>
+                                <input [(ngModel)]="mate.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del Material" />
+                            </td>
+                            <td>
+                                <select [(ngModel)]="mate.tipo.id" name="tipo" class="form-control">
+                                  <option *ngFor="let tmat of tipoMateriales" [ngValue]="tmat.id">{{ tmat.descripcion }}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <div>
+                                    <input [(ngModel)]="mate.talla" name="talla" [id]="'t'+mate.id" type="checkbox" class="filled-in chk-col-light-blue" />
+                                    <label [for]="'t'+mate.id">  </label>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <input [(ngModel)]="mate.activo" name="activo" [id]="mate.id" type="checkbox" class="filled-in chk-col-light-blue" />
+                                    <label [for]="mate.id">  </label>
+                                </div>
+                            </td>
+                            <td>
+                                <button *ngIf="permiso.agregar" (click)="guardar( mate )" class="btn btn-primary">
+                                <i class="fa fa-save"></i>
+                              </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <button (click)="cambiarDesde(-1)" class="btn btn-secondary">
+                  Anteriores
+                </button>
+
+                <button (click)="cambiarDesde(1)" class="btn btn-secondary">
+                  Siguientes
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>

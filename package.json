@@ -26,6 +26,8 @@
     "@ngrx/store-devtools": "^6.1.0",
     "chart.js": "^2.7.3",
     "core-js": "^2.5.4",
+    "lodash": "^4.17.11",
+    "lodash.update": "^4.10.2",
     "ng2-charts": "^1.6.0",
     "ngx-color-picker": "^4.5.3",
     "rxjs": "^6.2.2",

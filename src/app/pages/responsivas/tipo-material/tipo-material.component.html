@@ -1,0 +1,66 @@
+<div class="row animated fadeIn" *ngIf="cargando">
+
+    <div class="col-sm-12">
+
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div *ngIf="permiso?.agregar" class="text-right">
+                    <button (click)="crearTipoMaterial()" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                      <i class="fa fa-plus"></i> 
+                      Tipo de Material
+                  </button>
+                </div>
+
+                <h3 class="card-title">Tipos de Materiales registrados ( <small>{{ tipoMaterial.length }}</small> )</h3>
+
+                <table class="table table-sm table-hover">
+                    <thead>
+                        <tr>
+                            <th> Número </th>
+                            <th>Descripción</th>
+                            <th>Activo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let tmat of tipoMaterial">
+                            <td>
+                                <strong>{{ tmat.id }}</strong>
+                            </td>
+                            <td>
+                                <input [(ngModel)]="tmat.descripcion" name="nombre" type="text" class="form-control" placeholder="Descripcion del tipo de material" />
+                            </td>
+                            <td>
+                                <div>
+                                    <input [(ngModel)]="tmat.activo" name="activo" [id]="tmat.id" type="checkbox" class="filled-in chk-col-light-blue" />
+                                    <label [for]="tmat.id">  </label>
+                                </div>
+                            </td>
+                            <td>
+                                <button *ngIf="permiso?.modificar" (click)="modificarTipoMaterial( tmat )" class="btn btn-primary">
+                                  <i class="fa fa-save"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

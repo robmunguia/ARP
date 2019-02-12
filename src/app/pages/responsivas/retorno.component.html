@@ -1,0 +1,86 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <label for="codigoEmpleado">Número de Empleado</label>
+                <input type="text" name="codigoEmpleado" [(ngModel)]="noEmpleado" (keydown)="onKeydown($event)" class="form-control" placeholder="Número de Empleado ..." />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="entregas.length === 0 && noEmpleado !== 0">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>No se encontraron resultados</strong>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="!cargando && entregas.length > 0">
+    <div class="col-sm-12">
+        <div class="card card-body">
+
+            <div class="row">
+                <div class="col-md-3 col-xs-6 b-r"> <strong>No Empleado</strong>
+                    <br>
+                    <p class="text-muted"> {{ entregas[0].entrega.colaborador?.codigo }} </p>
+                </div>
+                <div class="col-md-3 col-xs-6 b-r"> <strong>Nombre</strong>
+                    <br>
+                    <p class="text-muted"> {{ entregas[0].entrega.colaborador?.nombre }} </p>
+                </div>
+                <div class="col-md-3 col-xs-6 b-r"> <strong>Puesto</strong>
+                    <br>
+                    <p class="text-muted"> {{ entregas[0].entrega.colaborador?.puesto }} </p>
+                </div>
+                <div class="col-md-3 col-xs-6"> <strong> Departamento </strong>
+                    <br>
+                    <p class="text-muted"> {{ entregas[0].entrega.colaborador?.departameto }} </p>
+                </div>
+            </div>
+
+            <table class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>Folio</th>
+                        <th>Fecha Entrega</th>
+                        <th>Material</th>
+                        <th>Detalles</th>
+                        <th>Cantidad</th>
+                        <th>Retornar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let entr of entregas; index as i">
+                        <td (click)="verPDF( entr.entrega.id )"><strong>{{ entr.entrega.id }}</strong></td>
+                        <td>{{ entr.fecha | fecha }}</td>
+                        <td>{{ entr.material.nombre }}</td>
+                        <td>{{ entr.talla }}</td>
+                        <td>{{ entr.cantidad }}</td>
+                        <td>
+                            <div>
+                                <input name="retronar" [(ngModel)]="entr.retorno" [id]="entr.id" type="checkbox" class="filled-in chk-col-light-blue" />
+                                <label [for]="entr.id">  </label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button name="retorno" (click)="retornar()" class="btn btn-danger waves-effect waves-light m-r-10">Retornar</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <label for="reponsiva">Folio de Responsiva</label>
+                <input type="text" name="reponsiva" [(ngModel)]="folio" (focusout)="buscarFolio()" (keydown)="onKeydownFolio($event)" class="form-control" placeholder="Buscar por folio ..." />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row animated fadeIn">
+    <div class="col-sm-12">
+        <div class="card card-body">
+            <h5 class="card-title">Entrega de Material</h5>
+
+            <div class="text-right">
+                <button (click)="nuevo()" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                    <i class="fa fa-plus"></i> 
+                    Nuevo
+                </button>
+            </div>
+
+            <div class="form-horizontal m-t-40">
+                <div class="form-group">
+                    <label for="noempleado">No Empleado</label>
+                    <input type="number" [(ngModel)]="noEmpleado" (focusout)="cargarColaborador( noEmpleado )" (keydown)="onKeydown($event)" name="noempleado" class="form-control" placeholder="Número de Empleado" />
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="rol">Tipo de Material</label>
+                        <ng-select name="material" [(ngModel)]="detalle.material" [items]="materiales" bindLabel="nombre">
+                            <ng-template ng-option-tmp let-item="item">
+                                {{item.nombre}}
+                            </ng-template>
+                        </ng-select>
+                    </div>
+                    <div *ngIf="detalle.material?.talla" [ngClass]="(detalle.material?.talla)?'col-md-3':'col-md-6'">
+                        <label for="talla">Talla</label>
+                        <div class="input-group">
+                            <select [(ngModel)]="detalle.talla" name="talla" id="talla" class="form-control">
+                                <optgroup label="Camisas">
+                                    <option *ngFor="let cami of tallas.camisas">{{ cami }}</option>
+                                </optgroup>
+                                <optgroup label="Pantalón">
+                                    <option *ngFor="let pant of tallas.pantalon">{{ pant }}</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div [ngClass]="(detalle.material?.talla)?'col-md-3':'col-md-6'">
+                        <label for="rol">Cantidad</label>
+                        <div class="input-group">
+                            <input type="number" name="cantidad" [(ngModel)]="detalle.cantidad" class="form-control">
+                            <div class="input-group-append">
+                                <button class="btn btn-info" (click)="agregarMaterial()" type="button">Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notas">Observaciones</label>
+                    <textarea name="notas" [(ngModel)]="entrega.notas" id="notas" rows="4" class="form-control"></textarea>
+                </div>
+
+                <button *ngIf="entrega.detalle.length > 0 && entrega.id === 0" (click)="guardar()" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                <button *ngIf="entrega.detalle.length > 0" name="preview" (click)="generaPDF()" class="btn btn-info waves-effect waves-light m-r-10">Ver</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="(entrega.detalle.length > 0) || entrega.colaborador?.codigo !== 0">
+    <div class="col-sm-12">
+        <div class="card card-body">
+
+            <div *ngIf="entrega.colaborador?.codigo !== 0" class="row">
+                <div class="col-md-3 col-xs-6 b-r"> <strong>No Empleado</strong>
+                    <br>
+                    <p class="text-muted"> {{ entrega.colaborador?.codigo }} </p>
+                </div>
+                <div class="col-md-3 col-xs-6 b-r"> <strong>Nombre</strong>
+                    <br>
+                    <p class="text-muted"> {{ entrega.colaborador?.nombre }} </p>
+                </div>
+                <div class="col-md-3 col-xs-6 b-r"> <strong>Puesto</strong>
+                    <br>
+                    <p class="text-muted"> {{ entrega.colaborador?.puesto }} </p>
+                </div>
+                <div class="col-md-3 col-xs-6"> <strong> Departamento </strong>
+                    <br>
+                    <p class="text-muted"> {{ entrega.colaborador?.departameto }} </p>
+                </div>
+            </div>
+
+            <table *ngIf="entrega.detalle.length > 0" class="table table-sm table-hover">
+                <thead>
+                    <tr>
+                        <th>Material</th>
+                        <th>Detalles</th>
+                        <th>Cantidad</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let mate of entrega.detalle; index as i">
+                        <td>
+                            <strong>{{ mate.material.nombre }}</strong>
+                        </td>
+                        <td>
+                            {{ mate.talla }}
+                        </td>
+                        <td>
+                            {{ mate.cantidad }}
+                        </td>
+                        <td>
+                            <button *ngIf="entrega.id === 0" (click)="removerMaterial( i )" class="btn btn-danger btn-sm">
+                                <i class="fa fa-eraser"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+</div>

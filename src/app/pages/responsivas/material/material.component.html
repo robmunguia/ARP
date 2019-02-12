@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-body">
+            <h4 class="card-title text-center"> Nuevo Material </h4>
+            <form #f="ngForm" ngNativeValidate (ngSubmit)="guardar()" class="form-horizontal m-t-40">
+                <div class="form-group">
+                    <label for="Nombre">Nombre</label>
+                    <input [(ngModel)]="material.nombre" type="text" name="Nombre" class="form-control" placeholder="Nombre" required />
+                </div>
+                <div class="form-group">
+                    <label for="rol">Tipo de Material</label>
+                    <select [(ngModel)]="material.tipo.id" name="tipo" class="form-control" required>
+                          <option *ngFor="let tmat of tipoMaterial" [ngValue]="tmat.id">{{ tmat.descripcion }}</option>
+                        </select>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <input [(ngModel)]="material.talla" name="talla" id="talla" type="checkbox" class="filled-in chk-col-light-blue" />
+                        <label for="talla"> Talla?</label>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label for="canitdad">Cantidad Inicial</label>
+                    <input [(ngModel)]="material.cantidad" type="number" name="cantidad" class="form-control" placeholder="Cantidad" />
+                </div> -->
+
+                <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Guardar</button>
+                <a href="#" [routerLink]="['/material']" class="btn btn-inverse waves-effect waves-light m-r-10">Cancelar</a>
+
+            </form>
+        </div>
+    </div>
+</div>

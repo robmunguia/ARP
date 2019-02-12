@@ -15,7 +15,8 @@ import {
     ConfirmacionService,
     PermisosService,
     ModulosService,
-    TableroService
+    TableroService,
+    ResponsivasService
  } from './service.index';
 
 @NgModule({
@@ -40,7 +41,8 @@ import {
         ConfirmacionService,
         PermisosService,
         ModulosService,
-        TableroService
+        TableroService,
+        ResponsivasService
     ],
     declarations: []
 })

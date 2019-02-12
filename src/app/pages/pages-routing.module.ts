@@ -25,6 +25,11 @@ import { ModulosComponent } from './settings/modulos.component';
 import { PerfilComponent } from './user/perfil.component';
 import { GeneralesComponent } from './reportes/generales/generales.component';
 import { DetallesComponent } from './requisiciones/detalles.component';
+import { TipoMaterialComponent } from './responsivas/tipo-material/tipo-material.component';
+import { MaterialComponent } from './responsivas/material/material.component';
+import { MaterialesComponent } from './responsivas/material/materiales.component';
+import { EntregaComponent } from './responsivas/entrega.component';
+import { RetornoComponent } from './responsivas/retorno.component';
 
 
 const Rutas: Routes = [
@@ -49,6 +54,11 @@ const Rutas: Routes = [
             { path: 'proceso', component: ProcRequisicionComponent, data: { modulo: ['Abrir/CancelarRequi', 'Consultar'] } },
             { path: 'modificar', component: ModificarComponent, data: { modulo: ['ModificarRequi', 'Consultar'] } },
             { path: 'clientes', component: ClientesComponent, data: { modulo: ['ClientesSucursal', 'Consultar'] } },
+            { path: 'tipos/material', component: TipoMaterialComponent, data: { modulo: ['TiposMaterial', 'Consultar'] } },
+            { path: 'material', component: MaterialesComponent, data: { modulo: ['Materiales', 'Consultar'] } },
+            { path: 'material/nuevo', component: MaterialComponent, data: { modulo: ['Material', 'Consultar'] } },
+            { path: 'entregas', component: EntregaComponent, data: { modulo: ['Entrega', 'Consultar'] } },
+            { path: 'retorno', component: RetornoComponent, data: { modulo: ['Retorno', 'Consultar'] } },
             {
                 path: 'config',
                 component: SettingsComponent,

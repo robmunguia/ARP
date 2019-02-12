@@ -15,6 +15,7 @@ export class SidebarComponent implements OnInit {
 
   showProceso = true;
   showReportes = true;
+  showResponsiva = true;
 
   constructor(public _authService: AuthService,
               public permServicio: PermisosService) {
@@ -28,6 +29,7 @@ export class SidebarComponent implements OnInit {
     this.permServicio.cargarPermisoMenu()
     .subscribe((data: Permisos[]) => {
       this.permisos = data;
+      this.permiso('Responsivas');
       this.permiso('Reportes');
       this.permiso('Procesos');
     });
@@ -45,6 +47,9 @@ export class SidebarComponent implements OnInit {
     }
     if (modulo === 'Reportes') {
       this.showReportes = permi === undefined ? false : permi.consultar;
+    }
+    if (modulo === 'Responsivas') {
+      this.showResponsiva = permi === undefined ? false : permi.consultar;
     }
     if (permi === undefined) {
       return false;
