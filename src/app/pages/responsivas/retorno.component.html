@@ -55,16 +55,33 @@
             <table class="table table-sm table-hover">
                 <thead>
                     <tr>
+                        <th>
+                            <div>
+                                <input name="imp-all" [(ngModel)]="imprTodos" id="impr-all" type="checkbox" (change)="SelecTodos()" class="filled-in chk-col-light-blue" />
+                                <label for="impr-all"> Imprimir </label>
+                            </div>
+                        </th>
                         <th>Folio</th>
                         <th>Fecha Entrega</th>
                         <th>Material</th>
                         <th>Detalles</th>
                         <th>Cantidad</th>
-                        <th>Retornar</th>
+                        <th>
+                            <div>
+                                <input name="reto-all" [(ngModel)]="retorTodos" id="reto-all" type="checkbox" (change)="RetorTodos()" class="filled-in chk-col-light-blue" />
+                                <label for="reto-all"> Retornar </label>
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let entr of entregas; index as i">
+                        <td>
+                            <div>
+                                <input name="imprimir" (change)="verBotones()" [(ngModel)]="entr.imprimir" [id]="'impr' + i" type="checkbox" class="filled-in chk-col-light-blue" />
+                                <label [for]="'impr' + i">  </label>
+                            </div>
+                        </td>
                         <td (click)="verPDF( entr.entrega.id )"><strong>{{ entr.entrega.id }}</strong></td>
                         <td>{{ entr.fecha | fecha }}</td>
                         <td>{{ entr.material.nombre }}</td>
@@ -72,15 +89,17 @@
                         <td>{{ entr.cantidad }}</td>
                         <td>
                             <div>
-                                <input name="retronar" [(ngModel)]="entr.retorno" [id]="entr.id" type="checkbox" class="filled-in chk-col-light-blue" />
+                                <input name="retronar" (change)="verBotones()" [(ngModel)]="entr.retorno" [id]="entr.id" type="checkbox" class="filled-in chk-col-light-blue" />
                                 <label [for]="entr.id">  </label>
                             </div>
                         </td>
                     </tr>
                 </tbody>
             </table>
-
-            <button name="retorno" (click)="retornar()" class="btn btn-danger waves-effect waves-light m-r-10">Retornar</button>
+            <div class="button-group">
+                <button *ngIf="verRetorno" name="retorno" (click)="retornar()" class="btn btn-danger">Retornar</button>
+                <button *ngIf="verImpr" name="imprresion" (click)="verMultiplePDF()" class="btn btn-success">Imprimir</button>
+            </div>
         </div>
     </div>
 </div>

@@ -121,6 +121,13 @@ export class ResponsivasService {
       return new Blob([resp], { type: 'application/pdf' });
     });
   }
+  generarMultiplePDF( entregas: DetalleEntrega[] ) {
+    const url = URL_SERVICIOS + '/view/multiple';
+    return this.http.post( url, entregas, { responseType: 'blob' } )
+    .map((resp: any) => {
+      return new Blob([resp], { type: 'application/pdf' });
+    });
+  }
   verPDF( folio: number ) {
     const url = URL_SERVICIOS + '/view?id=' + folio;
     return this.http.get( url, { responseType: 'blob'});

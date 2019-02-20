@@ -8,6 +8,7 @@ export class DetalleEntrega {
         public cantidad: number = 0,
         public talla: string = '',
         public retorno: boolean = false,
+        public imprimir: boolean = false,
         public fechaEntrega: Date = new Date(),
         public fecha: Fecha = new Fecha(),
         public fechaRetorno: Date = new Date(),
