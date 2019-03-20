@@ -41,6 +41,7 @@ import { GeneralesComponent } from './reportes/generales/generales.component';
 import { DetallesComponent } from './requisiciones/detalles.component';
 import { TipoMaterialComponent } from './responsivas/tipo-material/tipo-material.component';
 import { MaterialComponent } from './responsivas/material/material.component';
+import { FechaComponent } from './reportes/fecha/fecha.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { MaterialComponent } from './responsivas/material/material.component';
   GeneralesComponent,
   DetallesComponent,
   TipoMaterialComponent,
-  MaterialComponent
+  MaterialComponent,
+  FechaComponent
 ],
   imports: [
     BrowserModule,

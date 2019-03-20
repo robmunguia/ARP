@@ -16,7 +16,8 @@ import {
     PermisosService,
     ModulosService,
     TableroService,
-    ResponsivasService
+    ResponsivasService,
+    ReportesService
  } from './service.index';
 
 @NgModule({
@@ -42,7 +43,8 @@ import {
         PermisosService,
         ModulosService,
         TableroService,
-        ResponsivasService
+        ResponsivasService,
+        ReportesService
     ],
     declarations: []
 })

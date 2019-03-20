@@ -17,4 +17,12 @@ export class ReportesService {
       return data;
     });
   }
+
+  obtDias( param: Reportes ) {
+    const url = URL_SERVICIOS + '/reporte/dias';
+    return this.http.post( url, param )
+    .map((data: any) => {
+      return data;
+    });
+  }
 }

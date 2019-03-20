@@ -12,3 +12,4 @@ export { PermisosService } from './permisos/permisos.service';
 export { ModulosService } from './modulos/modulos.service';
 export { TableroService } from './tablero/tablero.service';
 export { ResponsivasService } from './responsivas/responsivas.service';
+export { ReportesService } from './reportes/reportes.service';

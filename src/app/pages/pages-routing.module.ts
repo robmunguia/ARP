@@ -30,6 +30,7 @@ import { MaterialComponent } from './responsivas/material/material.component';
 import { MaterialesComponent } from './responsivas/material/materiales.component';
 import { EntregaComponent } from './responsivas/entrega.component';
 import { RetornoComponent } from './responsivas/retorno.component';
+import { FechaComponent } from './reportes/fecha/fecha.component';
 
 
 const Rutas: Routes = [
@@ -44,6 +45,7 @@ const Rutas: Routes = [
             { path: 'detalle/:id', component: DetallesComponent, data: { modulo: ['Requisiciones', 'Detalles'] } },
             { path: 'usuarios', component: ListadoComponent, data: { modulo: ['UsuariosSucursal', 'Consultar'] } },
             { path: 'reporte/general', component: GeneralesComponent, data: { modulo: ['reporte/general', 'Consultar'] } },
+            { path: 'reporte/historico', component: FechaComponent, data: { modulo: ['reporte/historial', 'Consultar'] } },
             { path: 'users/:id', component: NuevoUsuarioComponent, data: { modulo: ['Usuarios', 'Modificar'] } },
             { path: 'users', component: UsuariosComponent, data: { modulo: ['Usuarios', 'Consultar'] } },
             { path: 'perfil', component: PerfilComponent, data: { modulo: ['Usuarios', 'Consultar'] } },
