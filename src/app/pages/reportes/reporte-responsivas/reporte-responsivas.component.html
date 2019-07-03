@@ -1,0 +1,89 @@
+<div *ngIf="!cargando" class="row">
+    <div class="col-12">
+        <div class="card">
+            <h3 class="card-title">Filtros <button type="button" *ngIf="showResultado" (click)="showParametros = !showParametros;" class="col-1 btn waves-effect waves-light btn-xs btn-info">Ocultar Filtros</button></h3>
+            <div class="card-body">
+
+                <form #f="ngForm" (ngSubmit)="cargarReporte()" ngNativeValidate class="row">
+                    <div class="form-group col-md-6">
+                        <label for="dpInicio">Fecha Inicial</label>
+                        <div class="input-group">
+                            <input class="form-control" [(ngModel)]="parametros.FecInicio" placeholder="yyyy-mm-dd" showWeekNumbers="true" name="dpInicio" ngbDatepicker #dInicio="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" (click)="dInicio.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="dpFinal">Fecha Final</label>
+                        <div class="input-group">
+                            <input class="form-control" [(ngModel)]="parametros.FecFinal" placeholder="yyyy-mm-dd" showWeekNumbers="true" name="dpFinal" ngbDatepicker #dFinal="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" (click)="dFinal.toggle()" type="button"><i class="fa fa-calendar"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="sucursal">Tipo de Material</label>
+                        <select [(ngModel)]="parametros.tipo" name='tipo' class="form-control">
+                            <option value=''>Todos</option>
+                            <option *ngFor="let mat of materiales">{{ mat.descripcion }}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Generar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br />
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br />
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="resultados">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <button name="btn" (click)="exportAsXLSX()" class="btn btn-success">Excel</button>
+
+                <table id="myTable" class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Empleado</th>
+                            <th>Material</th>
+                            <th>Cantidad</th>
+                            <th>Estado</th>
+                            <th>Fec. Entrega</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let rsp of resultados">
+                            <td>{{ rsp.folio }}</td>
+                            <td>{{ rsp.empleado }}</td>
+                            <td>{{ rsp.material }}</td>
+                            <td>{{ rsp.cantidad }}</td>
+                            <td>{{ rsp.estado }}</td>
+                            <td>{{ rsp.fechaEntrega | date:'yyyy-MM-dd' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

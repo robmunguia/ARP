@@ -8,6 +8,7 @@ export class Reportes {
         public FecFinal: Fecha = new Fecha(),
         public Estado: number = 0,
         public sucursales: Sucursales[] = [],
-        public resultados: ReporteGeneral[] = []
+        public resultados: ReporteGeneral[] = [],
+        public tipo: string = ''
     ) { }
 }

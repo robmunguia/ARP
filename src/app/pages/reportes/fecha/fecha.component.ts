@@ -19,21 +19,6 @@ export class FechaComponent implements OnInit {
   showParametros = true;
   cargando = false;
 
-  // LazyData
-  data: any = [{
-    eid: 'e101',
-    ename: 'ravi',
-    esal: 1000
-    }, {
-    eid: 'e102',
-    ename: 'ram',
-    esal: 2000
-    }, {
-    eid: 'e103',
-    ename: 'rajesh',
-    esal: 3000
-    }];
-
   constructor(public repoService: ReportesService,
               public excelService: ExcelService,
               public sucuService: SucursalesService) {

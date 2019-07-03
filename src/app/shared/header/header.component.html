@@ -52,7 +52,9 @@
                 <!-- Profile -->
                 <!-- ============================================================== -->
                 <li routerLinkActive="active" class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" [routerLink]="['/perfil']" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img [src]="user | imagen" alt="user" class="profile-pic m-r-10" /> {{ user.Nombre }} </a>
+                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" [routerLink]="['/perfil']" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img [src]="user | imagen" alt="user" width="40px" height="40px" class="profile-pic m-r-10" /> {{ user.Nombre }}
+                    </a>
                 </li>
             </ul>
         </div>

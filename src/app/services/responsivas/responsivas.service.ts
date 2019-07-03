@@ -6,6 +6,7 @@ import { Material } from '../../models/responsivas/material.model';
 import swal from 'sweetalert2';
 import { Entrega } from '../../models/responsivas/entrega.model';
 import { DetalleEntrega } from '../../models/responsivas/detentrega.model';
+import { Reportes } from '../../models/reportes.model';
 
 @Injectable({
   providedIn: 'root'
@@ -133,6 +134,16 @@ export class ResponsivasService {
     return this.http.get( url, { responseType: 'blob'});
   }
   /* END  Entrega de Material END */
+
+  /* Reporte */
+  reporte( parametro: Reportes ) {
+    const url = URL_SERVICIOS + '/reporte/responsiva';
+    return this.http.post( url, parametro )
+    .map((data: any) => {
+      return data;
+    });
+  }
+  /* END Reporte END */
 
 
 }
