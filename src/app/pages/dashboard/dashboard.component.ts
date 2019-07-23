@@ -19,10 +19,11 @@ export class DashboardComponent implements OnInit {
   sucursales: Sucursales[] = [];
   cargando = false;
   cargandoEnvios = false;
-  param = 'WEEK';
+  param = 'SEMANA_ACTUAL';
 
   TotalEnvia = 0;
   TotalConfi = 0;
+  TotalRecha = 0;
 
   // Doughnut
   public doughnutChartLabels: string[] = [];
@@ -110,6 +111,7 @@ export class DashboardComponent implements OnInit {
     this.TotalEnvia = 0;
     for (const env of this.envConfirmado) {
       this.TotalConfi += env.confirmados;
+      this.TotalRecha += env.rechazos;
       this.TotalEnvia += env.enviados;
     }
   }
