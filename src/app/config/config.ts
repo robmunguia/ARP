@@ -1,7 +1,7 @@
 import { Estatus } from '../models/estados.model';
 
-export const URL_SERVICIOS = '/api';
-// export const URL_SERVICIOS = 'http://localhost:51113/api';
+// export const URL_SERVICIOS = '/api';
+export const URL_SERVICIOS = 'http://localhost:51113/api';
 
 export const estados: Estatus[] = [{ Id: 0, Nombre: 'Activo' },
                                     { Id: 1, Nombre: 'Baja' },

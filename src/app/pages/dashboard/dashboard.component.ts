@@ -109,6 +109,7 @@ export class DashboardComponent implements OnInit {
   generaTotales() {
     this.TotalConfi = 0;
     this.TotalEnvia = 0;
+    this.TotalRecha = 0;
     for (const env of this.envConfirmado) {
       this.TotalConfi += env.confirmados;
       this.TotalRecha += env.rechazos;
