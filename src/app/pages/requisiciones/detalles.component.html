@@ -5,8 +5,8 @@
             <div class="card-body">
                 <h3 class="card-title text-center"># {{ requi.Id }} <span>{{ requi.cliente.Descripcion }}</span> </h3>
                 <h4 class="card-title text-center"> {{ requi.puesto.Nombre }} <span>{{ requi.turno.Nombre }}</span> </h4>
+                <h4 class="card-title text-center"> Salario: {{ requi.salario | currency }} <span *ngIf="requi.vales > 0"> Vales: {{ requi.vales | currency }}</span> <span *ngIf="requi.bono > 0"> Bono: {{ requi.bono | currency }}</span> </h4>
                 <h4 class="card-title text-center"> {{ requi.fecha | fecha }} <span class="card-subtitle">H</span> {{ requi.Hombres }} <span class="card-subtitle">M</span> {{ requi.Mujeres }} <span class="card-subtitle">I</span> {{ requi.Indistinto }} </h4>
-                <h4 class="card-title text-center"> {{ requi.salario | currency }} <span>{{ requi.vales | currency }}</span> </h4>
                 <span> {{ requi.Comentario }} </span>
 
             </div>

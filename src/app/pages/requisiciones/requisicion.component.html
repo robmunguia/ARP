@@ -44,7 +44,11 @@
                 <label for="salario">Vales</label>
                 <input [(ngModel)]="requi.vales" type="number" name="vales" class="form-control form-control-line" placeholder="Vales" />
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-3">
+                <label for="salario">Bono</label>
+                <input [(ngModel)]="requi.bono" type="number" name="bono" class="form-control form-control-line" placeholder="Bono" />
+            </div>
+            <div class="form-group col-md-3">
                 <label for="nomina">Tipo de Nómina</label>
                 <ng-select [(ngModel)]="requi.tnomina" name="tnomina" [items]="tnominas" bindLabel="Nombre">
                     <ng-template ng-option-tmp let-item="item">

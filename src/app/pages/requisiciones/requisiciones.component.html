@@ -18,9 +18,7 @@
 </div>
 
 <div class="row animated fadeIn" *ngIf="cargando">
-
     <div class="col-sm-12">
-
         <div class="alert alert-warning text-center">
             <strong>Cargando</strong>
             <br />
@@ -80,7 +78,11 @@
                             <td class="hidden-md-down">{{ req.Id }} </td>
                             <td class="hidden-md-down">{{ req.puesto.Nombre }}</td>
                             <td>{{ req.turno.Nombre }}</td>
-                            <td>{{ req.salario | currency }} V {{ req.vales | currency }} </td>
+                            <td>
+                                <span>{{ req.salario | currency }}</span>&nbsp;
+                                <span *ngIf="req.vales > 0">V {{ req.vales | currency }}</span>&nbsp;
+                                <span *ngIf="req.bono > 0">N {{ req.bono | currency }}</span>
+                            </td>
                             <td> {{ req.Hombres }} </td>
                             <td> {{ req.Mujeres }} </td>
                             <td> {{ req.Indistinto }} </td>

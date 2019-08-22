@@ -17,6 +17,7 @@ export class Requisicion {
         public usuario: Usuario = new Usuario(),
         public envios: Envio[] = [],
         public salario: number = 0,
+        public bono: number = 0,
         public vales: number = 0,
         public Hombres: number = 0,
         public Mujeres: number = 0,
