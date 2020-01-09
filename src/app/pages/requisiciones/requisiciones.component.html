@@ -33,16 +33,13 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-
                 <div class="alert alert-warning text-center" role="alert">
                     No has registrado requisiciones <br> El botón azul abre el formulario para generar un nuevo requerimiento.
                 </div>
                 <div class="text-center">
                     <a *ngIf="reqPermiso?.agregar" class="btn waves-effect waves-light btn-info" [routerLink]="['/requis/add']"> <i class="mdi mdi-plus"></i> </a>
                 </div>
-
             </div>
-
         </div>
     </div>
 </div>
@@ -65,7 +62,7 @@
                             <th class="hidden-md-down">#</th>
                             <th class="hidden-md-down">PUESTO</th>
                             <th>TURNO</th>
-                            <th>SALARIO</th>
+                            <th>SALARIO B:Bono</th>
                             <th> H </th>
                             <th> M </th>
                             <th> I </th>
@@ -80,8 +77,8 @@
                             <td>{{ req.turno.Nombre }}</td>
                             <td>
                                 <span>{{ req.salario | currency }}</span>&nbsp;
-                                <span *ngIf="req.vales > 0">V {{ req.vales | currency }}</span>&nbsp;
-                                <span *ngIf="req.bono > 0">N {{ req.bono | currency }}</span>
+                                <span placement="top" ngbTooltip="Vales" *ngIf="req.vales > 0">V {{ req.vales | currency }}</span>&nbsp;
+                                <span placement="top" ngbTooltip="Bono" *ngIf="req.bono > 0">B {{ req.bono | currency }}</span>
                             </td>
                             <td> {{ req.Hombres }} </td>
                             <td> {{ req.Mujeres }} </td>
